@@ -55,7 +55,7 @@ export default function LeafletMiniMap({
 
   return (
     <div className="w-full">
-      <div style={{ height, width }} className=" overflow-hidden">
+      <div style={{ height, width }} className=" overflow-hidden rounded-sm">
         <MapContainer
           center={coords}
           zoom={zoom}

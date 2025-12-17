@@ -172,11 +172,19 @@ export const companyProfileMock: CompanyProfile = {
   techStack: {
     frontend: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
     backend: ["Node.js", "NestJS", "GraphQL"],
-    database: ["PostgreSQL", "Redis"],
-    devOps: ["Docker", "Kubernetes", "AWS", "GitHub Actions"],
+    infrastructure: [
+      "PostgreSQL",
+      "Redis",
+      "Docker",
+      "Kubernetes",
+      "AWS",
+      "GitHub Actions",
+    ],
   },
 
   media: {
+    familyPhotoUrls:
+      "https://cdn-images.welcometothejungle.com/dO28UCP4qIHN5YX8Y8KIudoITYIeWwtkLiV1MU-clv0/rs:auto:1500::/q:85/czM6Ly93dHRqLXByb2R1Y3Rpb24vdXBsb2Fkcy93ZWJzaXRlX29yZ2FuaXphdGlvbi9jb3Zlcl9pbWFnZS93dHRqX2ZyL2ZyLThlNDBjNGU4LTE3NjgtNGI5ZS04ZTY3LTI4ZWYzNzc0NjU4Zi5qcGc",
     socialLinks: {
       twitter: "https://twitter.com/acmetech",
       linkedin: "https://linkedin.com/company/acmetech",

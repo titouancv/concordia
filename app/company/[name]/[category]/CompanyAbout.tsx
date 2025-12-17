@@ -5,17 +5,14 @@ import MiniMap from "@/app/components/MiniMap";
 import Card from "@/app/components/ui/Card";
 import { CompanyProfile } from "@/types/companyTypes";
 import {
-  Globe,
   Twitter,
   Linkedin,
   Github,
   Facebook,
   Youtube,
   Instagram,
-  Users,
-  Rocket,
-  DollarSign,
 } from "lucide-react"; // Optionnel: icones plus modernes
+import { TagList } from "@/app/components/TagList";
 
 // --- Sous-composants utilitaires ---
 
@@ -29,9 +26,7 @@ const StatItem = ({
   subValue?: string;
 }) => (
   <div className="flex flex-col">
-    <span className="text-sm text-neutral-500 dark:text-neutral-400">
-      {label}
-    </span>
+    <span className="text-sm text-textColor">{label}</span>
     <span className="font-bold text-lg">
       {value}{" "}
       {subValue && (
@@ -40,27 +35,6 @@ const StatItem = ({
     </span>
   </div>
 );
-
-const TechGroup = ({ title, items }: { title: string; items?: string[] }) => {
-  if (!items?.length) return null;
-  return (
-    <div>
-      <h3 className="text-xs uppercase tracking-widest text-neutral-500 font-bold mb-3">
-        {title}
-      </h3>
-      <div className="flex flex-wrap gap-2">
-        {items.map((tech) => (
-          <span
-            key={tech}
-            className="px-3 py-1 bg-white dark:bg-neutral-700 border border-neutral-200 dark:border-neutral-600 rounded-full text-sm shadow-sm transition-hover hover:border-blue-400"
-          >
-            {tech}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-};
 
 // --- Hook de données ---
 
@@ -108,7 +82,7 @@ export default function CompanyAbout({ name }: { name: string }) {
         </p>
         <button
           onClick={retry}
-          className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+          className="px-4 py-2 bg-action text-textColor rounded-lg hover:bg-action transition"
         >
           Réessayer
         </button>
@@ -135,44 +109,46 @@ export default function CompanyAbout({ name }: { name: string }) {
   });
 
   return (
-    <div className="w-full max-w-6xl mx-auto p-4 space-y-8 text-neutral-900 dark:text-neutral-100">
+    <div className="w-full max-w-6xl mx-auto p-4 space-y-4 text-textColor">
       {/* Hero Section */}
       <header>
-        <p className="text-xl text-neutral-600 dark:text-neutral-400 italic mb-4">
-          {company.tagline}
-        </p>
+        {media?.familyPhotoUrls && (
+          <img
+            src={media?.familyPhotoUrls}
+            alt={`${company.name} Team`}
+            className="w-full h-48 object-cover rounded-sm mb-4"
+          />
+        )}
         <p className="max-w-3xl leading-relaxed opacity-90">
           {company.description}
         </p>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Infos Clés */}
-        <Card className="p-6">
-          <h2 className="font-bold text-lg mb-4 flex items-center gap-2  ">
-            Vitalité
-          </h2>
+        <Card>
           <div className="space-y-4">
+            <h2 className="font-bold text-xl mb-6">🏢 Infos Clés</h2>
             <StatItem
-              label="Fondation"
+              label="Créer en"
               value={lifecycle?.yearFounded || "N/A"}
             />
             <div>
-              <span className="text-sm text-neutral-500">Site Web</span>
+              <span className="text-sm text-textColor">Site Web</span>
               <a
                 href={company.websiteUrl}
                 target="_blank"
-                className="block text-blue-500 hover:underline truncate"
+                className="block text-action hover:underline truncate"
               >
                 {company.websiteUrl}
               </a>
             </div>
             {/* Social Links simplified rendering */}
-            <div className="flex flex-wrap gap-3 pt-2">
+            <div className="flex flex-wrap gap-4 pt-2">
               {media?.socialLinks?.linkedin && (
                 <a
                   href={media.socialLinks.linkedin}
-                  className="hover:text-blue-600"
+                  className="hover:text-action"
                 >
                   <Linkedin size={20} />
                 </a>
@@ -180,7 +156,7 @@ export default function CompanyAbout({ name }: { name: string }) {
               {media?.socialLinks?.twitter && (
                 <a
                   href={media.socialLinks.twitter}
-                  className="hover:text-blue-400"
+                  className="hover:text-action"
                 >
                   <Twitter size={20} />
                 </a>
@@ -188,7 +164,7 @@ export default function CompanyAbout({ name }: { name: string }) {
               {media?.socialLinks?.github && (
                 <a
                   href={media.socialLinks.github}
-                  className="hover:text-neutral-500"
+                  className="hover:text-action"
                 >
                   <Github size={20} />
                 </a>
@@ -196,7 +172,7 @@ export default function CompanyAbout({ name }: { name: string }) {
               {media?.socialLinks?.youtube && (
                 <a
                   href={media.socialLinks.youtube}
-                  className="hover:text-blue-600"
+                  className="hover:text-action"
                 >
                   <Youtube size={20} />
                 </a>
@@ -204,7 +180,7 @@ export default function CompanyAbout({ name }: { name: string }) {
               {media?.socialLinks?.instagram && (
                 <a
                   href={media.socialLinks.instagram}
-                  className="hover:text-blue-400"
+                  className="hover:text-action"
                 >
                   <Instagram size={20} />
                 </a>
@@ -212,7 +188,7 @@ export default function CompanyAbout({ name }: { name: string }) {
               {media?.socialLinks?.facebook && (
                 <a
                   href={media.socialLinks.facebook}
-                  className="hover:text-neutral-500"
+                  className="hover:text-action"
                 >
                   <Facebook size={20} />
                 </a>
@@ -222,12 +198,10 @@ export default function CompanyAbout({ name }: { name: string }) {
         </Card>
 
         {/* Équipe */}
-        <Card className="p-6">
-          <h2 className="font-bold text-lg mb-4 flex items-center gap-2 ">
-            Équipe
-          </h2>
+        <Card>
           {workforce && (
             <div className="space-y-4">
+              <h2 className="font-bold text-xl mb-6">👥 Équipe</h2>
               <div className="grid grid-cols-2 gap-4">
                 {workforce.employeeCount && (
                   <StatItem
@@ -244,22 +218,20 @@ export default function CompanyAbout({ name }: { name: string }) {
                   />
                 )}
               </div>
-              <div className="w-full bg-neutral-200 dark:bg-neutral-700 h-2 rounded-full overflow-hidden flex">
-                <div
-                  style={{ width: `${workforce.demographics?.menPercentage}%` }}
-                  className="bg-blue-400 h-full"
-                  title="Hommes"
+              {workforce.demographics && (
+                <TagList
+                  title="Répartition"
+                  items={[
+                    `♂︎ ${workforce.demographics?.menPercentage}%`,
+                    `♀︎ ${workforce.demographics?.womenPercentage}%`,
+                    workforce.demographics?.otherPercentage
+                      ? `⚧ ${workforce.demographics?.otherPercentage}%`
+                      : "",
+                  ].filter(Boolean)}
                 />
-                <div
-                  style={{
-                    width: `${workforce.demographics?.womenPercentage}%`,
-                  }}
-                  className="bg-pink-400 h-full"
-                  title="Femmes"
-                />
-              </div>
+              )}
               {workforce.hiringStatus === "hiring" && (
-                <div className="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 p-3 rounded-lg text-center text-sm font-bold">
+                <div className="bg-action text-textCColor p-3 rounded-lg text-center text-sm font-bold">
                   🔥 {workforce.openPositionsCount} postes ouverts
                 </div>
               )}
@@ -268,12 +240,10 @@ export default function CompanyAbout({ name }: { name: string }) {
         </Card>
 
         {/* Finance */}
-        <Card className="p-6">
-          <h2 className="font-bold text-lg mb-4 flex items-center gap-2 ">
-            Finance
-          </h2>
+        <Card>
           {financials ? (
-            <div className="space-y-4">
+            <>
+              <h2 className="font-bold text-xl ">💰 Finance</h2>
               <StatItem
                 label="Levée totale"
                 value={
@@ -283,8 +253,9 @@ export default function CompanyAbout({ name }: { name: string }) {
                 }
               />
               {financials.lastFundingRound && (
-                <div className="text-sm p-3 bg-neutral-50 dark:bg-neutral-800 rounded-lg">
-                  <p className="font-bold text-blue-500">
+                <div className="text-sm">
+                  <span className="text-sm text-textColor">Dernière levée</span>
+                  <p className="font-bold text-lg text-action">
                     {financials.lastFundingRound.roundType}
                   </p>
                   <p>
@@ -295,7 +266,7 @@ export default function CompanyAbout({ name }: { name: string }) {
                   </p>
                 </div>
               )}
-            </div>
+            </>
           ) : (
             <p className="text-sm opacity-50 italic">Données non disponibles</p>
           )}
@@ -304,12 +275,12 @@ export default function CompanyAbout({ name }: { name: string }) {
 
       {/* Tech Stack */}
       {techStack && (
-        <Card className="p-6 border-none bg-neutral-50 dark:bg-neutral-900/50 shadow-inner">
-          <h2 className="font-bold text-xl mb-6">🛠 Stack Technique</h2>
+        <Card>
+          <h2 className="font-bold text-xl ">🛠 Stack Technique</h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
-            <TechGroup title="Frontend" items={techStack.frontend} />
-            <TechGroup title="Backend" items={techStack.backend} />
-            <TechGroup title="Infrastructure" items={techStack.database} />
+            <TagList title="Frontend" items={techStack.frontend} />
+            <TagList title="Backend" items={techStack.backend} />
+            <TagList title="Infrastructure" items={techStack.infrastructure} />
           </div>
         </Card>
       )}
@@ -317,23 +288,20 @@ export default function CompanyAbout({ name }: { name: string }) {
       {/* Locations */}
       {locations && (
         <section className="space-y-4">
-          <h2 className="font-bold text-2xl flex items-center gap-2">
-            📍 Implantations
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="flex flex-row gap-4">
             <div className="space-y-2">
-              <p className="text-xs font-bold uppercase text-neutral-500">
+              <h2 className=" font-bold uppercase text-textColor">
                 Siège Social
-              </p>
+              </h2>
               <div>
                 <MiniMap address={locations.headquarters!} width={400} />
               </div>
             </div>
             {locations.offices && locations.offices.length > 0 && (
               <div className="space-y-2">
-                <p className="text-xs font-bold uppercase text-neutral-500">
+                <h2 className=" font-bold uppercase text-textColor">
                   Bureaux ({locations.offices.length})
-                </p>
+                </h2>
                 <div className="flex gap-4 overflow-x-auto pb-4 snap-x">
                   {locations.offices.map((office, idx) => (
                     <div key={idx}>

@@ -5,7 +5,7 @@ interface CardProps {
 }
 
 export default function Card({ children, className, style }: CardProps) {
-  const combinedClassName = `flex flex-col bg-white dark:bg-neutral-800 rounded-sm shadow-md p-4 ${
+  const combinedClassName = `flex flex-col bg-secondary rounded-sm shadow-md p-4 gap-4${
     className || ""
   }`;
   return (

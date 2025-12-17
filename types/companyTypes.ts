@@ -97,11 +97,11 @@ export interface Identity {
 export interface TechStack {
   frontend?: string[];
   backend?: string[];
-  database?: string[];
-  devOps?: string[];
+  infrastructure?: string[];
 }
 
 export interface Media {
+  familyPhotoUrls?: string;
   socialLinks?: SocialLinks;
   pressMentions?: PressMention[];
   awards?: Award[];
