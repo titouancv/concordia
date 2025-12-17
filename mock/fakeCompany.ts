@@ -27,9 +27,13 @@ export const companyProfileMock: CompanyProfile = {
     description:
       "Acme Tech est une startup spécialisée dans les solutions SaaS basées sur l’intelligence artificielle pour les entreprises.",
     tagline: "Powering smart businesses",
-    logoUrl: "https://example.com/logos/acme.png",
+    identity: {
+      logoUrl: "https://example.com/logos/acmetech.png",
+      mainColor: "#2563EB",
+      actionColor: "#22C55E",
+      theme: "light",
+    },
     websiteUrl: "https://www.acmetech.io",
-    domain: "acmetech.io",
   },
 
   lifecycle: {
@@ -152,6 +156,12 @@ export const companyProfileMock: CompanyProfile = {
           pseudo: "datapulse",
           description: "Startup spécialisée en data analytics",
           websiteUrl: "https://datapulse.io",
+          indentity: {
+            logoUrl: "https://example.com/logos/datapulse.png",
+            mainColor: "#FF5733",
+            actionColor: "#C70039",
+            theme: "light",
+          },
         },
         date: "2023-03-20",
         price: 1_500_000,
@@ -164,12 +174,6 @@ export const companyProfileMock: CompanyProfile = {
     backend: ["Node.js", "NestJS", "GraphQL"],
     database: ["PostgreSQL", "Redis"],
     devOps: ["Docker", "Kubernetes", "AWS", "GitHub Actions"],
-  },
-
-  identity: {
-    mainColor: "#2563EB",
-    actionColor: "#22C55E",
-    theme: "light",
   },
 
   media: {

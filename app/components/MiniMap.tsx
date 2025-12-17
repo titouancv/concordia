@@ -73,8 +73,6 @@ export default function LeafletMiniMap({
                 : "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
             }
           />
-
-          {/* Marqueur discret */}
           <Marker position={coords} icon={minimalMarker} />
         </MapContainer>
       </div>

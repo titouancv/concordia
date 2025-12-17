@@ -6,7 +6,7 @@ export interface CompanyRef {
   pseudo: string;
   description?: string;
   websiteUrl?: string;
-  logoUrl?: string;
+  indentity: Identity;
 }
 
 export interface Company {
@@ -15,9 +15,8 @@ export interface Company {
   legalName?: string;
   description?: string;
   tagline?: string;
-  logoUrl?: string;
+  identity: Identity;
   websiteUrl?: string;
-  domain?: string;
 }
 
 export interface CompanyProfile {
@@ -34,8 +33,6 @@ export interface CompanyProfile {
   financials?: Financials;
 
   techStack?: TechStack;
-
-  identity?: Identity;
 
   media?: Media;
 }
@@ -93,6 +90,7 @@ export interface Financials {
 export interface Identity {
   mainColor?: string;
   actionColor?: string;
+  logoUrl?: string;
   theme?: "light" | "dark";
 }
 
