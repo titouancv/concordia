@@ -1,3 +1,4 @@
+import CompanyAbout from "./CompanyAbout";
 import CompanyHome from "./CompanyHome";
 
 export default async function CompanyCategory({
@@ -10,8 +11,8 @@ export default async function CompanyCategory({
   switch (category) {
     case "product":
       return <CompanyHome name={name} />;
-    case "aboutUs":
-      return <CompanyHome name={name} />;
+    case "about":
+      return <CompanyAbout name={name} />;
     case "career":
       return <CompanyHome name={name} />;
     default:

@@ -7,3 +7,17 @@ export interface SocialLinks {
   youtube?: string;
   websites?: string[];
 }
+
+export interface Certification {
+  name: string;
+  issuer?: string;
+  year?: number;
+}
+
+export interface Address {
+  street?: string;
+  city: string;
+  state?: string;
+  postalCode?: string;
+  country: string;
+}
