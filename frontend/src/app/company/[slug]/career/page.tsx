@@ -1,4 +1,5 @@
 import { api } from "@/services/api";
+import { Job } from "@/types/company";
 import { MapPin, Clock, ArrowRight } from "lucide-react";
 
 export default async function CompanyCareerPage({
@@ -27,7 +28,7 @@ export default async function CompanyCareerPage({
 
       <div className="space-y-4">
         {company.jobs && company.jobs.length > 0 ? (
-          company.jobs.map((job: any) => (
+          company.jobs.map((job: Job) => (
             <div
               key={job.id}
               className="group rounded-sm p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:border-[var(--company-primary)] transition-all hover:shadow-sm"

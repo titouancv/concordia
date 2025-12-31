@@ -1,8 +1,8 @@
 "use client";
 
+import { Theme } from "@/types/app";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Theme } from "@/app/company/[slug]/page";
 
 interface Tab {
   name: string;

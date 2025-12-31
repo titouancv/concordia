@@ -2,6 +2,7 @@ import { api } from "@/services/api";
 import Image from "next/image";
 import Link from "next/link";
 import { MapPin, Users, Calendar, DollarSign, PieChart } from "lucide-react";
+import { UserRecap } from "@/types/user";
 
 export default async function CompanyAboutPage({
   params,
@@ -53,7 +54,7 @@ export default async function CompanyAboutPage({
         <section>
           <h2 className="text-2xl font-bold mb-6">Founders</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {company.about.founders.map((founder: any) => (
+            {company.about.founders.map((founder: UserRecap) => (
               <Link
                 href={`/user/${founder.username}`}
                 key={founder.username}

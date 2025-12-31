@@ -5,10 +5,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { InlineMenu } from "../InlineMenu";
+import { Company } from "@/types/company";
 
 interface CompanyHeaderProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  company: any;
+  company: Company;
 }
 
 export function CompanyHeader({ company }: CompanyHeaderProps) {

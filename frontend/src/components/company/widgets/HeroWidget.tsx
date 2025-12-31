@@ -1,4 +1,4 @@
-import { Theme } from "@/app/company/[slug]/page";
+import { Theme } from "@/types/app";
 
 interface HeroWidgetProps {
   title: string;

@@ -1,6 +1,8 @@
-import { Post } from "@/components/feed/PostCard";
+import { Company } from "@/types/company";
+import { User } from "@/types/user";
+import { Post } from "@/types/feed";
 
-export const COMPANIES = {
+export const COMPANIES: Record<string, Company> = {
   acme: {
     name: "Acme Corp",
     slug: "acme",
@@ -33,12 +35,14 @@ export const COMPANIES = {
         "A world where technology seamlessly integrates with daily life to improve human productivity and happiness.",
       founders: [
         {
+          id: "1",
           name: "John Doe",
           role: "CEO & Co-founder",
           avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=John",
           username: "johndoe",
         },
         {
+          id: "2",
           name: "Jane Smith",
           role: "CTO & Co-founder",
           avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Jane",
@@ -134,6 +138,7 @@ export const COMPANIES = {
       vision: "To be the operating system for modern business.",
       founders: [
         {
+          id: "1",
           name: "Mike Ross",
           role: "CEO",
           avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Mike",

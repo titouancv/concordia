@@ -3,15 +3,6 @@ import { api } from "@/services/api";
 import { HeroWidget } from "@/components/company/widgets/HeroWidget";
 import { StatsWidget } from "@/components/company/widgets/StatsWidget";
 
-export interface Theme {
-  primary: string;
-  secondary: string;
-  action: string;
-  primaryText: string;
-  secondaryText: string;
-  actionText: string;
-}
-
 export default async function CompanyHomePage({
   params,
 }: {

@@ -5,18 +5,11 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Search } from "lucide-react";
-import { Theme } from "@/app/company/[slug]/page";
-
-interface Employee {
-  id: string;
-  name: string;
-  role: string;
-  avatar: string;
-  username: string;
-}
+import { UserRecap } from "@/types/user";
+import { Theme } from "@/types/app";
 
 interface EmployeeListProps {
-  employees: Employee[];
+  employees: UserRecap[];
   theme: Theme;
 }
 
