@@ -37,7 +37,7 @@ export function PostCard({ post }: PostCardProps) {
             }
           : {}
       }
-      className=" rounded-xl p-4 mb-4  "
+      className=" rounded-sm p-4 mb-4  "
     >
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center gap-3">
@@ -98,7 +98,7 @@ export function PostCard({ post }: PostCardProps) {
       </div>
 
       {post.image && (
-        <div className="mb-4 rounded-lg overflow-hidden border border-[var(--border)] relative aspect-video">
+        <div className="mb-4 rounded-sm overflow-hidden border border-[var(--border)] relative aspect-video">
           <Image
             src={post.image}
             alt="Post content"

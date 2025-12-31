@@ -25,6 +25,7 @@ export default async function CompanyLayout({
         "--company-primary": company.theme.primary,
         "--company-secondary": company.theme.secondary,
         "--company-action": company.theme.action,
+        color: company.theme.secondaryText,
       }}
     >
       <CompanyHeader company={company} />

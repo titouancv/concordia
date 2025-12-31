@@ -36,8 +36,14 @@ export function EmployeeList({ employees, theme }: EmployeeListProps) {
         <input
           type="text"
           placeholder="Search by name or role..."
-          className="w-full pl-10 pr-4 py-3 rounded-full border border-[var(--border)] bg-[var(--background)]/80 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-[var(--company-primary)] transition-all"
-          style={{ "--ring-color": theme.primary } as any}
+          className="w-full pl-10 pr-4 py-3 rounded-full"
+          style={
+            {
+              "--ring-color": theme.primary,
+              backgroundColor: theme.primaryText,
+              color: theme.primary,
+            } as any
+          }
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
@@ -48,10 +54,10 @@ export function EmployeeList({ employees, theme }: EmployeeListProps) {
           <Link
             href={`/user/${employee.username}`}
             key={employee.id}
-            className="group backdrop-blur-sm rounded-xl p-6 flex flex-col items-center text-center hover:border-[var(--company-primary)] transition-all hover:-translate-y-1"
+            className="group rounded-sm flex flex-col p-2 gap-2 items-center text-center transition-all hover:-translate-y-1"
             style={{ backgroundColor: theme.primary, color: theme.primaryText }}
           >
-            <div className="w-24 h-24 rounded-full overflow-hidden relative mb-4 border-2 border-transparent group-hover:border-[var(--company-primary)] transition-colors">
+            <div className="w-full h-28 overflow-hidden relative transition-colors">
               <Image
                 src={employee.avatar}
                 alt={employee.name}
@@ -59,14 +65,10 @@ export function EmployeeList({ employees, theme }: EmployeeListProps) {
                 className="object-cover"
               />
             </div>
-            <h3 className="font-bold text-lg mb-1">{employee.name}</h3>
-            <p className="text-sm ">{employee.role}</p>
-            <span
-              className="mt-4 text-xs font-medium px-3 py-1 rounded-full"
-              style={{ backgroundColor: theme.action, color: theme.actionText }}
-            >
-              View Profile
-            </span>
+            <div className="p-2 w-full text-left">
+              <h3 className="font-bold text-lg mb-1">{employee.name}</h3>
+              <p className="text-sm ">{employee.role}</p>
+            </div>
           </Link>
         ))}
       </div>

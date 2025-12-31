@@ -1,6 +1,15 @@
 import { PostCard } from "@/components/feed/PostCard";
 import { api } from "@/services/api";
 
+export const DEFAULT_THEME = {
+  primary: "#000000ff",
+  secondary: "#ffffffff",
+  action: "#ff4500",
+  primaryText: "#ffffffff",
+  secondaryText: "#000000ff",
+  actionText: "#ffffffff",
+};
+
 export default async function FeedPage() {
   const posts = await api.feed.get();
 

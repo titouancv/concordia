@@ -14,7 +14,7 @@ export function StatsWidget({ stats, theme }: StatsWidgetProps) {
       {stats.map((stat, index) => (
         <div
           key={index}
-          className="backdrop-blur-sm rounded-xl p-6 text-center"
+          className="backdrop-blur-sm rounded-sm p-6 text-center"
           style={{ backgroundColor: theme.primary }}
         >
           <div

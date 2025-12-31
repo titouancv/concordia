@@ -19,7 +19,7 @@ export default async function CompanyCareerPage({
         <h1 className="text-3xl md:text-4xl font-bold mb-4">
           Join {company.name}
         </h1>
-        <p className="text-lg text-[var(--muted-foreground)] max-w-2xl mx-auto">
+        <p className="text-lg  max-w-2xl mx-auto">
           We are always looking for talented individuals to join our team. Check
           out our open positions below.
         </p>
@@ -30,13 +30,17 @@ export default async function CompanyCareerPage({
           company.jobs.map((job: any) => (
             <div
               key={job.id}
-              className="group bg-[var(--background)]/80 backdrop-blur-sm border border-[var(--border)] rounded-xl p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:border-[var(--company-primary)] transition-all hover:shadow-sm"
+              className="group rounded-sm p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:border-[var(--company-primary)] transition-all hover:shadow-sm"
+              style={{
+                backgroundColor: company.theme.primaryText,
+                color: company.theme.primary,
+              }}
             >
               <div>
                 <h3 className="text-xl font-bold mb-2 group-hover:text-[var(--company-primary)] transition-colors">
                   {job.title}
                 </h3>
-                <div className="flex flex-wrap gap-4 text-sm text-[var(--muted-foreground)]">
+                <div className="flex flex-wrap gap-4 text-sm ">
                   <div className="flex items-center gap-1">
                     <Clock className="w-4 h-4" />
                     {job.type}
@@ -54,8 +58,11 @@ export default async function CompanyCareerPage({
               </div>
 
               <button
-                className="px-6 py-3 rounded-full font-semibold text-white flex items-center gap-2 transition-transform group-hover:translate-x-1"
-                style={{ backgroundColor: company.theme.action }}
+                className="px-6 py-3 rounded-full font-semibold  flex items-center gap-2 transition-transform group-hover:translate-x-1"
+                style={{
+                  backgroundColor: company.theme.action,
+                  color: company.theme.actionText,
+                }}
               >
                 Apply Now
                 <ArrowRight className="w-4 h-4" />
@@ -63,10 +70,8 @@ export default async function CompanyCareerPage({
             </div>
           ))
         ) : (
-          <div className="text-center py-12 bg-[var(--muted)] rounded-xl">
-            <p className="text-[var(--muted-foreground)]">
-              No open positions at the moment.
-            </p>
+          <div className="text-center py-12 bg-[var(--muted)] rounded-sm">
+            <p className="">No open positions at the moment.</p>
           </div>
         )}
       </div>

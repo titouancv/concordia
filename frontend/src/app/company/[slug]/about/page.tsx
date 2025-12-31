@@ -22,24 +22,30 @@ export default async function CompanyAboutPage({
         {/* History */}
         <section>
           <h2 className="text-2xl font-bold mb-4">Our Story</h2>
-          <p className="text-lg leading-relaxed text-[var(--muted-foreground)]">
-            {company.about.history}
-          </p>
+          <p className="text-lg leading-relaxed ">{company.about.history}</p>
         </section>
 
         {/* Vision & Mission */}
         <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-[var(--background)]/60 backdrop-blur-sm p-6 rounded-xl border border-[var(--border)]">
+          <div
+            className=" p-6 rounded-sm"
+            style={{
+              backgroundColor: company.theme.primaryText,
+              color: company.theme.primary,
+            }}
+          >
             <h3 className="text-xl font-bold mb-3">Mission</h3>
-            <p className="text-[var(--muted-foreground)]">
-              {company.about.mission}
-            </p>
+            <p>{company.about.mission}</p>
           </div>
-          <div className="bg-[var(--background)]/60 backdrop-blur-sm p-6 rounded-xl border border-[var(--border)]">
+          <div
+            className=" p-6 rounded-sm"
+            style={{
+              backgroundColor: company.theme.primaryText,
+              color: company.theme.primary,
+            }}
+          >
             <h3 className="text-xl font-bold mb-3">Vision</h3>
-            <p className="text-[var(--muted-foreground)]">
-              {company.about.vision}
-            </p>
+            <p>{company.about.vision}</p>
           </div>
         </section>
 
@@ -51,7 +57,11 @@ export default async function CompanyAboutPage({
               <Link
                 href={`/user/${founder.username}`}
                 key={founder.username}
-                className="flex items-center gap-4 p-4 border border-[var(--border)] rounded-xl bg-[var(--background)] hover:border-[var(--company-primary)] transition-colors group"
+                className="flex items-center gap-4 p-4 rounded-sm"
+                style={{
+                  backgroundColor: company.theme.primary,
+                  color: company.theme.primaryText,
+                }}
               >
                 <div className="w-16 h-16 rounded-full overflow-hidden relative bg-gray-100">
                   <Image
@@ -62,12 +72,8 @@ export default async function CompanyAboutPage({
                   />
                 </div>
                 <div>
-                  <h4 className="font-bold group-hover:text-[var(--company-primary)] transition-colors">
-                    {founder.name}
-                  </h4>
-                  <p className="text-sm text-[var(--muted-foreground)]">
-                    {founder.role}
-                  </p>
+                  <h4 className="font-bold">{founder.name}</h4>
+                  <p className="text-sm">{founder.role}</p>
                 </div>
               </Link>
             ))}
@@ -77,7 +83,7 @@ export default async function CompanyAboutPage({
         {/* Location */}
         <section>
           <h2 className="text-2xl font-bold mb-6">Office</h2>
-          <div className="rounded-xl overflow-hidden border border-[var(--border)] bg-[var(--background)]">
+          <div className="rounded-sm overflow-hidden">
             <div className="h-64 relative bg-gray-200">
               <Image
                 src={company.about.officeLocation.mapImage}
@@ -87,7 +93,7 @@ export default async function CompanyAboutPage({
               />
             </div>
             <div className="p-4 bg-[var(--background)] flex items-center gap-2">
-              <MapPin className="w-5 h-5 text-[var(--muted-foreground)]" />
+              <MapPin className="w-5 h-5" />
               <span>{company.about.officeLocation.address}</span>
             </div>
           </div>
@@ -97,12 +103,18 @@ export default async function CompanyAboutPage({
       {/* Sticky Sidebar */}
       <div className="lg:col-span-1">
         <div className="sticky top-24 space-y-6">
-          <div className="bg-[var(--background)]/80 backdrop-blur-sm border border-[var(--border)] rounded-xl p-6 shadow-sm">
+          <div
+            className=" rounded-sm p-6 shadow-sm"
+            style={{
+              backgroundColor: company.theme.primaryText,
+              color: company.theme.primary,
+            }}
+          >
             <h3 className="text-lg font-bold mb-6">Key Figures</h3>
 
             <div className="space-y-6">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3 text-[var(--muted-foreground)]">
+                <div className="flex items-center gap-3">
                   <Users className="w-5 h-5" />
                   <span>Employees</span>
                 </div>
@@ -110,7 +122,7 @@ export default async function CompanyAboutPage({
               </div>
 
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3 text-[var(--muted-foreground)]">
+                <div className="flex items-center gap-3">
                   <Calendar className="w-5 h-5" />
                   <span>Founded</span>
                 </div>
@@ -118,7 +130,7 @@ export default async function CompanyAboutPage({
               </div>
 
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3 text-[var(--muted-foreground)]">
+                <div className="flex items-center gap-3">
                   <PieChart className="w-5 h-5" />
                   <span>Gender Ratio</span>
                 </div>
@@ -128,7 +140,7 @@ export default async function CompanyAboutPage({
               </div>
 
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3 text-[var(--muted-foreground)]">
+                <div className="flex items-center gap-3">
                   <DollarSign className="w-5 h-5" />
                   <span>Last Funding</span>
                 </div>
@@ -137,10 +149,8 @@ export default async function CompanyAboutPage({
                 </span>
               </div>
 
-              <div className="flex items-center justify-between pt-4 border-t border-[var(--border)]">
-                <span className="text-[var(--muted-foreground)]">
-                  Total Raised
-                </span>
+              <div className="flex items-center justify-between pt-4">
+                <span className="">Total Raised</span>
                 <span
                   className="text-xl font-bold"
                   style={{ color: "var(--company-primary)" }}

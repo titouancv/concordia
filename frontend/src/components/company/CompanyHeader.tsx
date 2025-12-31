@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { InlineMenu } from "../InlineMenu";
 
 interface CompanyHeaderProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -25,7 +26,12 @@ export function CompanyHeader({ company }: CompanyHeaderProps) {
   const isActive = (path: string) => pathname === path;
 
   return (
-    <div className="bg-[var(--company-secondary)]">
+    <div
+      style={{
+        backgroundColor: company.theme.secondary,
+        color: company.theme.secondaryText,
+      }}
+    >
       <div className="h-48 md:h-64 relative w-full bg-gray-200">
         <Image
           src={company.cover}
@@ -38,7 +44,7 @@ export function CompanyHeader({ company }: CompanyHeaderProps) {
       <div className="px-4 md:px-8 max-w-7xl mx-auto relative">
         <div className="flex flex-col md:flex-row items-start md:items-end -mt-12 mb-6 gap-6">
           <div
-            className="w-24 h-24 md:w-32 md:h-32 rounded-xl border-4 border-[var(--company-secondary)] overflow-hidden relative bg-white shadow-sm"
+            className="w-24 h-24 md:w-32 md:h-32 rounded-sm border-4 border-[var(--company-secondary)] overflow-hidden relative bg-white shadow-sm"
             style={{ borderColor: "var(--company-secondary)" }}
           >
             <Image
@@ -51,45 +57,23 @@ export function CompanyHeader({ company }: CompanyHeaderProps) {
 
           <div className="flex-1 mb-2">
             <h1 className="text-2xl md:text-3xl font-bold">{company.name}</h1>
-            <p className="text-[var(--muted-foreground)]">
-              {company.description}
-            </p>
+            <p>{company.description}</p>
           </div>
 
           <div className="mb-4 md:mb-2">
             <button
               className="px-6 py-2 rounded-full font-medium text-white transition-opacity hover:opacity-90"
-              style={{ backgroundColor: company.theme.action }}
+              style={{
+                backgroundColor: company.theme.action,
+                color: company.theme.actionText,
+              }}
             >
               Follow
             </button>
           </div>
         </div>
 
-        <nav className="flex overflow-x-auto pb-1 scrollbar-hide gap-8">
-          {tabs.map((tab) => (
-            <Link
-              key={tab.name}
-              href={tab.href}
-              className={cn(
-                "pb-3 text-sm font-medium border-b-2 transition-colors whitespace-nowrap",
-                isActive(tab.href)
-                  ? "border-[var(--company-primary)] text-[var(--company-primary)]"
-                  : "border-transparent text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
-              )}
-              style={
-                isActive(tab.href)
-                  ? {
-                      borderColor: company.theme.primary,
-                      color: company.theme.primary,
-                    }
-                  : {}
-              }
-            >
-              {tab.name}
-            </Link>
-          ))}
-        </nav>
+        <InlineMenu tabs={tabs} theme={company.theme} />
       </div>
     </div>
   );

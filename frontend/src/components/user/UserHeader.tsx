@@ -5,6 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { MapPin, Briefcase } from "lucide-react";
+import { InlineMenu } from "../InlineMenu";
+import { DEFAULT_THEME } from "@/app/page";
 
 interface UserHeaderProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -65,22 +67,7 @@ export function UserHeader({ user }: UserHeaderProps) {
           </div>
         </div>
 
-        <nav className="flex gap-8">
-          {tabs.map((tab) => (
-            <Link
-              key={tab.name}
-              href={tab.href}
-              className={cn(
-                "pb-3 text-sm font-medium transition-colors",
-                isActive(tab.href)
-                  ? "font-bold text-[var(--primary)]"
-                  : "border-transparent text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
-              )}
-            >
-              {tab.name}
-            </Link>
-          ))}
-        </nav>
+        <InlineMenu tabs={tabs} theme={DEFAULT_THEME} />
       </div>
     </div>
   );

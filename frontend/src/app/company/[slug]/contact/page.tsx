@@ -17,9 +17,7 @@ export default async function CompanyContactPage({
     <div>
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">Meet the Team</h1>
-        <p className="text-[var(--muted-foreground)]">
-          The people behind {company.name}
-        </p>
+        <p>The people behind {company.name}</p>
       </div>
 
       <EmployeeList employees={company.employees || []} theme={company.theme} />
