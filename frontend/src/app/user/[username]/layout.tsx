@@ -1,0 +1,25 @@
+import { notFound } from "next/navigation";
+import { api } from "@/services/api";
+import { UserHeader } from "@/components/user/UserHeader";
+
+export default async function UserLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: Promise<{ username: string }>;
+}) {
+  const { username } = await params;
+  const user = await api.user.get(username);
+
+  if (!user) {
+    notFound();
+  }
+
+  return (
+    <div className="min-h-screen bg-[var(--background)]">
+      <UserHeader user={user} />
+      <div className="max-w-7xl mx-auto px-4 md:px-8 py-8">{children}</div>
+    </div>
+  );
+}
