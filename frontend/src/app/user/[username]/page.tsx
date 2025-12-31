@@ -18,7 +18,7 @@ export default async function UserHomePage({
       <div className="md:col-span-2 space-y-8">
         <section>
           <h2 className="text-xl font-bold mb-4">About</h2>
-          <p className="text-[var(--muted-foreground)] leading-relaxed">
+          <p className=" leading-relaxed">
             {user.bio}
             {/* Add more dummy text if bio is short */}
             <br />
@@ -34,15 +34,13 @@ export default async function UserHomePage({
           <div className="space-y-6">
             {user.experiences.map((exp) => (
               <div key={exp.id} className="flex gap-4">
-                <div className="w-12 h-12 rounded bg-[var(--muted)] flex items-center justify-center text-xs font-bold text-[var(--muted-foreground)]">
+                <div className="w-12 h-12 rounded bg-[var(--primary)] flex items-center justify-center text-xs font-bold">
                   {exp.company.substring(0, 2).toUpperCase()}
                 </div>
                 <div>
                   <h3 className="font-semibold">{exp.role}</h3>
-                  <p className="text-sm text-[var(--foreground)]">
-                    {exp.company}
-                  </p>
-                  <p className="text-xs text-[var(--muted-foreground)] mt-1">
+                  <p className="text-sm ">{exp.company}</p>
+                  <p className="text-xs mt-1">
                     {exp.startDate} - {exp.endDate}
                   </p>
                 </div>
@@ -59,7 +57,7 @@ export default async function UserHomePage({
             {user.skills.map((skill) => (
               <span
                 key={skill}
-                className="px-3 py-1 rounded-full bg-[var(--muted)] text-sm text-[var(--foreground)]"
+                className="px-3 py-1 rounded-full bg-[var(--primary)] text-sm text-[var(--primaryText)]"
               >
                 {skill}
               </span>
@@ -72,12 +70,8 @@ export default async function UserHomePage({
           <div className="space-y-4">
             <div>
               <h3 className="font-semibold">University of Technology</h3>
-              <p className="text-sm text-[var(--muted-foreground)]">
-                BSc Computer Science
-              </p>
-              <p className="text-xs text-[var(--muted-foreground)] mt-1">
-                2015 - 2018
-              </p>
+              <p className="text-sm">BSc Computer Science</p>
+              <p className="text-xs mt-1">2015 - 2018</p>
             </div>
           </div>
         </section>

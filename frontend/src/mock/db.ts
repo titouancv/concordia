@@ -1,5 +1,4 @@
 import { Company } from "@/types/company";
-import { User } from "@/types/user";
 import { Post } from "@/types/feed";
 
 export const COMPANIES: Record<string, Company> = {

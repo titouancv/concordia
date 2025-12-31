@@ -1,8 +1,16 @@
 import { api } from "@/services/api";
 import Image from "next/image";
 import Link from "next/link";
-import { MapPin, Users, Calendar, DollarSign, PieChart } from "lucide-react";
+import {
+  MapPin,
+  Users,
+  Calendar,
+  DollarSign,
+  PieChart,
+  User,
+} from "lucide-react";
 import { UserRecap } from "@/types/user";
+import { UserCard } from "@/components/company/UserCard";
 
 export default async function CompanyAboutPage({
   params,
@@ -55,28 +63,7 @@ export default async function CompanyAboutPage({
           <h2 className="text-2xl font-bold mb-6">Founders</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {company.about.founders.map((founder: UserRecap) => (
-              <Link
-                href={`/user/${founder.username}`}
-                key={founder.username}
-                className="flex items-center gap-4 p-4 rounded-sm"
-                style={{
-                  backgroundColor: company.theme.primary,
-                  color: company.theme.primaryText,
-                }}
-              >
-                <div className="w-16 h-16 rounded-full overflow-hidden relative bg-gray-100">
-                  <Image
-                    src={founder.avatar}
-                    alt={founder.name}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div>
-                  <h4 className="font-bold">{founder.name}</h4>
-                  <p className="text-sm">{founder.role}</p>
-                </div>
-              </Link>
+              <UserCard key={founder.id} user={founder} theme={company.theme} />
             ))}
           </div>
         </section>

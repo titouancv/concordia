@@ -19,7 +19,7 @@ export function InlineMenu({ tabs, theme }: InlineMenuProps) {
   const isActive = (path: string) => pathname === path;
 
   return (
-    <nav className="flex overflow-x-auto pb-1 scrollbar-hide gap-8">
+    <nav className="flex overflow-x-auto pb-1 scrollbar-hide gap-4">
       {tabs.map((tab) => (
         <Link
           key={tab.name}

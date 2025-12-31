@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Heart, MessageCircle, Share2, MoreHorizontal } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { Post } from "@/types/feed";
 
 interface PostCardProps {
@@ -11,14 +10,18 @@ interface PostCardProps {
 export function PostCard({ post }: PostCardProps) {
   const isCompany = post.author.type === "company";
   const primaryColor = post.author.theme?.primary;
+  const primaryColorText = post.author.theme?.primaryText;
 
   return (
     <article
-      className="bg-[var(--background)]/80 backdrop-blur-sm border border-[var(--border)] rounded-xl p-4 mb-4 hover:border-[var(--hover-color)] transition-colors"
+      className="bg-[var(--primary)] text-[var(--primaryText)] rounded-sm p-4 mb-4"
       style={
-        primaryColor
-          ? ({ "--hover-color": primaryColor } as React.CSSProperties)
-          : undefined
+        post.author.theme
+          ? {
+              backgroundColor: primaryColor,
+              color: primaryColorText,
+            }
+          : {}
       }
     >
       <div className="flex items-start justify-between mb-3">
@@ -31,14 +34,8 @@ export function PostCard({ post }: PostCardProps) {
             }
           >
             <div
-              className={cn(
-                "w-10 h-10 rounded-full overflow-hidden relative border",
-                isCompany ? "border-transparent" : "border-[var(--border)]"
-              )}
-              style={
-                isCompany && post.author.theme
-                  ? { borderColor: post.author.theme.primary, borderWidth: 2 }
-                  : {}
+              className={
+                "w-10 h-10 rounded-full overflow-hidden relative border"
               }
             >
               <Image
@@ -57,20 +54,13 @@ export function PostCard({ post }: PostCardProps) {
                   : `/user/${post.author.username}`
               }
               className="font-semibold hover:underline"
-              style={
-                isCompany && post.author.theme
-                  ? { color: post.author.theme.primary }
-                  : {}
-              }
             >
               {post.author.name}
             </Link>
-            <p className="text-xs text-[var(--muted-foreground)]">
-              {post.createdAt}
-            </p>
+            <p className="text-xs">{post.createdAt}</p>
           </div>
         </div>
-        <button className="text-[var(--muted-foreground)] hover:text-[var(--foreground)]">
+        <button className="">
           <MoreHorizontal className="w-5 h-5" />
         </button>
       </div>
@@ -80,7 +70,7 @@ export function PostCard({ post }: PostCardProps) {
       </div>
 
       {post.image && (
-        <div className="mb-4 rounded-sm overflow-hidden border border-[var(--border)] relative aspect-video">
+        <div className="mb-4 rounded-sm overflow-hidden relative aspect-video">
           <Image
             src={post.image}
             alt="Post content"
@@ -90,18 +80,17 @@ export function PostCard({ post }: PostCardProps) {
         </div>
       )}
 
-      <div className="flex items-center justify-between pt-3 border-t border-[var(--border)]">
-        <button className="flex items-center gap-2 text-sm text-[var(--muted-foreground)] hover:text-[var(--primary)] transition-colors group">
-          <Heart className="w-5 h-5 group-hover:fill-[var(--primary)]" />
+      <div className="flex items-center justify-start gap-4 pt-3">
+        <button className="flex items-center gap-2 text-sm transition-colors group">
+          <Heart className="w-5 h-5 group-hover:fill-white" />
           <span>{post.likes}</span>
         </button>
-        <button className="flex items-center gap-2 text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors">
+        <button className="flex items-center gap-2 text-sm ">
           <MessageCircle className="w-5 h-5" />
           <span>{post.comments}</span>
         </button>
-        <button className="flex items-center gap-2 text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors">
+        <button className="flex items-center gap-2 text-sm ">
           <Share2 className="w-5 h-5" />
-          <span>Share</span>
         </button>
       </div>
     </article>

@@ -6,3 +6,12 @@ export interface Theme {
   action: string;
   actionText: string;
 }
+
+export const DEFAULT_THEME = {
+  primary: "#000000ff",
+  secondary: "#ffffffff",
+  action: "#ff4500",
+  primaryText: "#ffffffff",
+  secondaryText: "#000000ff",
+  actionText: "#ffffffff",
+};

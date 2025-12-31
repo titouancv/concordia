@@ -7,6 +7,7 @@ import Link from "next/link";
 import { Search } from "lucide-react";
 import { UserRecap } from "@/types/user";
 import { Theme } from "@/types/app";
+import { UserCard } from "./UserCard";
 
 interface EmployeeListProps {
   employees: UserRecap[];
@@ -44,25 +45,7 @@ export function EmployeeList({ employees, theme }: EmployeeListProps) {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {filteredEmployees.map((employee) => (
-          <Link
-            href={`/user/${employee.username}`}
-            key={employee.id}
-            className="group rounded-sm flex flex-col p-2 gap-2 items-center text-center transition-all hover:-translate-y-1"
-            style={{ backgroundColor: theme.primary, color: theme.primaryText }}
-          >
-            <div className="w-full h-28 overflow-hidden relative transition-colors">
-              <Image
-                src={employee.avatar}
-                alt={employee.name}
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div className="p-2 w-full text-left">
-              <h3 className="font-bold text-lg mb-1">{employee.name}</h3>
-              <p className="text-sm ">{employee.role}</p>
-            </div>
-          </Link>
+          <UserCard key={employee.id} user={employee} theme={theme} />
         ))}
       </div>
 

@@ -1,12 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
 import { MapPin, Briefcase } from "lucide-react";
 import { InlineMenu } from "../InlineMenu";
-import { DEFAULT_THEME } from "@/app/page";
+import { DEFAULT_THEME } from "@/types/app";
 
 interface UserHeaderProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

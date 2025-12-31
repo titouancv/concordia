@@ -17,7 +17,7 @@ export default async function UserLayout({
   }
 
   return (
-    <div className="min-h-screen bg-[var(--background)]">
+    <div className="min-h-screen bg-[var(--secondary)]">
       <UserHeader user={user} />
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-8">{children}</div>
     </div>

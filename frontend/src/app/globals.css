@@ -6,28 +6,26 @@
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --primary: #ff4500; /* Orange/Red vivid */
-  --primary-foreground: #ffffff;
-  --muted: #f5f5f5;
-  --muted-foreground: #737373;
-  --border: #e5e5e5;
+  --primary: #d8d8d8;
+  --secondary: #c7c7c7;
+  --action: #ff4500; /* Orange/Red vivid */
+  --primaryText: #ffffff;
+  --secondaryText: #000000;
+  --actionText: #000000;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --muted: #262626;
-    --muted-foreground: #a3a3a3;
-    --border: #404040;
+    --primary: #1d1d1d;
+    --secondary: #363636;
+    --primaryText: #ffffff;
+    --secondaryText: #ffffff;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--secondary);
+  color: var(--secondaryText);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 

@@ -18,13 +18,17 @@ export default async function CompanyLayout({
 
   return (
     <div
-      className="min-h-screen bg-[var(--company-secondary)]"
+      className="min-h-screen"
       style={{
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        "--company-primary": company.theme.primary,
-        "--company-secondary": company.theme.secondary,
-        "--company-action": company.theme.action,
+        "--primary": company.theme.primary,
+        "--secondary": company.theme.secondary,
+        "--action": company.theme.action,
+        "--primaryText": company.theme.primaryText,
+        "--secondaryText": company.theme.secondaryText,
+        "--actionText": company.theme.actionText,
+        backgroundColor: company.theme.secondary,
         color: company.theme.secondaryText,
       }}
     >

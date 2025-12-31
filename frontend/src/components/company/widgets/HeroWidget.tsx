@@ -17,7 +17,7 @@ export function HeroWidget({
   theme,
 }: HeroWidgetProps) {
   return (
-    <div className="bg-[var(--company-primary)] text-white rounded-sm p-8 md:p-12 mb-8 flex flex-col md:flex-row items-center gap-8">
+    <div className="bg-[var(--primary)] text-[var(--primaryText)] rounded-sm p-8 md:p-12 mb-8 flex flex-col md:flex-row items-center gap-8">
       <div className="flex-1">
         <h2
           className="text-3xl md:text-4xl font-bold mb-4"

@@ -44,8 +44,8 @@ export function CompanyHeader({ company }: CompanyHeaderProps) {
       <div className="px-4 md:px-8 max-w-7xl mx-auto relative">
         <div className="flex flex-col md:flex-row items-start md:items-end -mt-12 mb-6 gap-6">
           <div
-            className="w-24 h-24 md:w-32 md:h-32 rounded-sm border-4 border-[var(--company-secondary)] overflow-hidden relative bg-white shadow-sm"
-            style={{ borderColor: "var(--company-secondary)" }}
+            className="w-24 h-24 md:w-32 md:h-32 rounded-sm border-4 border-[var(--secondary)] overflow-hidden relative bg-white shadow-sm"
+            style={{ borderColor: "var(--secondary)" }}
           >
             <Image
               src={company.logo}
