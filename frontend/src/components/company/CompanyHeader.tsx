@@ -1,9 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
 import { InlineMenu } from "../InlineMenu";
 import { Company } from "@/types/company";
 
@@ -12,7 +9,6 @@ interface CompanyHeaderProps {
 }
 
 export function CompanyHeader({ company }: CompanyHeaderProps) {
-  const pathname = usePathname();
   const baseUrl = `/company/${company.slug}`;
 
   const tabs = [
@@ -22,8 +18,6 @@ export function CompanyHeader({ company }: CompanyHeaderProps) {
     { name: "Contact", href: `${baseUrl}/contact` },
     { name: "Career", href: `${baseUrl}/career` },
   ];
-
-  const isActive = (path: string) => pathname === path;
 
   return (
     <div

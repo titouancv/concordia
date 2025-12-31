@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { usePathname } from "next/navigation";
 import { MapPin, Briefcase } from "lucide-react";
 import { InlineMenu } from "../InlineMenu";
 import { DEFAULT_THEME } from "@/types/app";
@@ -12,7 +11,6 @@ interface UserHeaderProps {
 }
 
 export function UserHeader({ user }: UserHeaderProps) {
-  const pathname = usePathname();
   const baseUrl = `/user/${user.username}`;
 
   const tabs = [
@@ -20,10 +18,8 @@ export function UserHeader({ user }: UserHeaderProps) {
     { name: "Posts", href: `${baseUrl}/posts` },
   ];
 
-  const isActive = (path: string) => pathname === path;
-
   return (
-    <div className="bg-[var(--background)] ">
+    <div className="bg-[var(--background)] pt-16">
       <div className="px-4 md:px-8 max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row items-start gap-8 mb-8">
           <div className="w-32 h-32 rounded-full border-4 border-[var(--background)] overflow-hidden relative bg-[var(--muted)] shadow-sm">
@@ -55,10 +51,10 @@ export function UserHeader({ user }: UserHeaderProps) {
             </div>
 
             <div className="flex gap-3">
-              <button className="px-6 py-2 rounded-full font-medium bg-[var(--foreground)] text-[var(--background)] hover:opacity-90 transition-opacity">
+              <button className="px-6 py-2 rounded-full font-medium bg-[var(--action)] text-[var(--actionText)] hover:opacity-90 transition-opacity">
                 Connect
               </button>
-              <button className="px-6 py-2 rounded-full font-medium border border-[var(--border)] hover:bg-[var(--muted)] transition-colors">
+              <button className="px-6 py-2 rounded-full font-medium bg-[var(--primary)] hover:bg-[var(--primary)]/80 text-[var(--primaryText)] transition-colors">
                 Message
               </button>
             </div>
