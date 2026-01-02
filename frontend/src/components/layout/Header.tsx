@@ -11,7 +11,13 @@ export function Header() {
   const isActive = (path: string) => pathname === path;
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 p-4 flex items-center justify-start px-6 md:px-12">
+    <header
+      className="
+    fixed z-50 p-4 flex items-center
+    bottom-4 left-1/2 -translate-x-1/2
+    md:top-4 md:left-4 md:bottom-auto md:translate-x-0
+  "
+    >
       <div className="bg-[var(--primary)] border-2 border-[var(--action)] rounded-full">
         <nav className="flex items-center">
           <Link

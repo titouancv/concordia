@@ -21,9 +21,7 @@ export function FeaturesWidget({ features }: FeaturesWidgetProps) {
             <Card isInverted={true}>
               <div className="aspect-video rounded-sm bg-muted mb-6 w-full object-cover" />
               <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-              <p className="text-muted-foreground">
-                {feature.description} dddddd
-              </p>
+              <p className="text-muted-foreground">{feature.description}</p>
             </Card>
           </div>
         ))}

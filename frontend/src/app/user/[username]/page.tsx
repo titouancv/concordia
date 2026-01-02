@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { api } from "@/services/api";
+import UserKeys from "@/components/user/UserKeys";
 
 export default async function UserHomePage({
   params,
@@ -32,14 +33,34 @@ export default async function UserHomePage({
         <section>
           <h2 className="text-xl font-bold mb-4">Experience</h2>
           <div className="space-y-6">
-            {user.experiences.map((exp) => (
+            {user.professional.map((exp) => (
               <div key={exp.id} className="flex gap-4">
                 <div className="w-12 h-12 rounded bg-[var(--primary)] flex items-center justify-center text-xs font-bold">
-                  {exp.company.substring(0, 2).toUpperCase()}
+                  {exp.institutionName.substring(0, 2).toUpperCase()}
                 </div>
                 <div>
                   <h3 className="font-semibold">{exp.role}</h3>
-                  <p className="text-sm ">{exp.company}</p>
+                  <p className="text-sm ">{exp.institutionName}</p>
+                  <p className="text-xs mt-1">
+                    {exp.startDate} - {exp.endDate}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section>
+          <h2 className="text-xl font-bold mb-4">Education</h2>
+          <div className="space-y-6">
+            {user.education.map((exp) => (
+              <div key={exp.id} className="flex gap-4">
+                <div className="w-12 h-12 rounded bg-[var(--primary)] flex items-center justify-center text-xs font-bold">
+                  {exp.institutionName.substring(0, 2).toUpperCase()}
+                </div>
+                <div>
+                  <h3 className="font-semibold">{exp.role}</h3>
+                  <p className="text-sm ">{exp.institutionName}</p>
                   <p className="text-xs mt-1">
                     {exp.startDate} - {exp.endDate}
                   </p>
@@ -50,31 +71,10 @@ export default async function UserHomePage({
         </section>
       </div>
 
-      <div className="space-y-8">
-        <section>
-          <h2 className="text-xl font-bold mb-4">Skills</h2>
-          <div className="flex flex-wrap gap-2">
-            {user.skills.map((skill) => (
-              <span
-                key={skill}
-                className="px-3 py-1 rounded-full bg-[var(--primary)] text-sm text-[var(--primaryText)]"
-              >
-                {skill}
-              </span>
-            ))}
-          </div>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-bold mb-4">Education</h2>
-          <div className="space-y-4">
-            <div>
-              <h3 className="font-semibold">University of Technology</h3>
-              <p className="text-sm">BSc Computer Science</p>
-              <p className="text-xs mt-1">2015 - 2018</p>
-            </div>
-          </div>
-        </section>
+      <div className="lg:col-span-1">
+        <div className="sticky top-24 space-y-6">
+          <UserKeys user={user} />
+        </div>
       </div>
     </div>
   );

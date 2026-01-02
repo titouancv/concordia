@@ -20,7 +20,7 @@ export default async function CompanyAboutPage({
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 relative">
       {/* Main Content */}
-      <div className="lg:col-span-2 space-y-12">
+      <div className="lg:col-span-2 space-y-8">
         {/* History */}
         <section>
           <h2 className="text-2xl font-bold mb-4">Our Story</h2>

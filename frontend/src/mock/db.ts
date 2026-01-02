@@ -1,5 +1,6 @@
 import { Company } from "@/types/company";
 import { Post } from "@/types/feed";
+import { User } from "@/types/user";
 
 export const COMPANIES: Record<string, Company> = {
   acme: {
@@ -422,30 +423,40 @@ export const COMPANIES: Record<string, Company> = {
   },
 };
 
-export const USERS = {
+export const USERS: Record<string, User> = {
   sarahj: {
     name: "Sarah Jenkins",
     username: "sarahj",
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
     bio: "Senior Frontend Developer | React | Next.js | UI/UX Enthusiast",
     location: "London, UK",
-    experiences: [
+    professional: [
       {
         id: 1,
         role: "Senior Frontend Developer",
-        company: "TechFlow",
+        institutionName: "TechFlow",
         startDate: "2021",
         endDate: "Present",
       },
       {
         id: 2,
         role: "Frontend Developer",
-        company: "WebSolutions",
+        institutionName: "WebSolutions",
         startDate: "2018",
         endDate: "2021",
       },
     ],
+    education: [
+      {
+        id: 1,
+        role: "BSc Computer Science",
+        institutionName: "University of London",
+        startDate: "2014",
+        endDate: "2018",
+      },
+    ],
     skills: ["React", "TypeScript", "Tailwind CSS", "Node.js", "GraphQL"],
+    hobbies: ["Hiking", "Photography", "Cooking"],
   },
 };
 

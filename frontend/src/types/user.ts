@@ -1,7 +1,7 @@
 export interface Experience {
   id: number;
   role: string;
-  company: string;
+  institutionName: string;
   startDate: string;
   endDate: string;
 }
@@ -12,8 +12,10 @@ export interface User {
   avatar: string;
   bio: string;
   location: string;
-  experiences: Experience[];
-  skills: string[];
+  professional: Experience[];
+  education: Experience[];
+  skills?: string[];
+  hobbies?: string[];
 }
 
 export interface UserRecap {
