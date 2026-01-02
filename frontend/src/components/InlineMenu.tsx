@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
 
 interface Tab {
   name: string;
@@ -22,14 +23,27 @@ export function InlineMenu({ tabs }: InlineMenuProps) {
         <Link
           key={tab.name}
           href={tab.href}
-          className={`py-1 px-4 rounded-full font-bold transition-colors whitespace-nowrap
-          ${
-            isActive(tab.href)
-              ? "bg-[var(--primary)] text-[var(--primaryText)]"
-              : "bg-transparent text-[var(--secondaryText)] hover:text-[var(--action)]"
-          }`}
+          className="relative py-1 px-4 font-bold whitespace-nowrap"
         >
-          {tab.name}
+          <motion.span
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.2 }}
+            className={`relative z-10 ${
+              isActive(tab.href)
+                ? "text-[var(--primaryText)]"
+                : "text-[var(--secondaryText)] hover:text-[var(--action)]"
+            }`}
+          >
+            {tab.name}
+          </motion.span>
+          {isActive(tab.href) && (
+            <motion.div
+              layoutId="activeTab"
+              className="absolute inset-0 bg-[var(--primary)] rounded-full"
+              transition={{ type: "spring", stiffness: 380, damping: 30 }}
+            />
+          )}
         </Link>
       ))}
     </nav>

@@ -11,7 +11,7 @@ export const typeDefs = `#graphql
 
   # User experience (professional or education)
   type Experience {
-    id: Int!
+    id: String!
     role: String!
     institutionName: String!
     startDate: String!

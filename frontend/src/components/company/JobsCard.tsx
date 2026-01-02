@@ -7,7 +7,7 @@ export default async function JobsCard({ job }: { job: Job }) {
     <Card isInverted={true}>
       <div
         key={job.id}
-        className="group rounded-sm flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all hover:shadow-sm"
+        className="group rounded-sm flex flex-col md:flex-row md:items-center justify-between gap-4 transition-all"
       >
         <div>
           <h3 className="text-xl font-bold mb-2 transition-colors">

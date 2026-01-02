@@ -39,6 +39,7 @@ export const api = {
   },
   user: {
     get: async (username: string): Promise<User | null> => {
+      console.log("Fetching user:", username);
       try {
         const { data } = await apolloClient.query<{ user: User }>({
           query: GET_USER,
