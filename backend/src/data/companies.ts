@@ -1,6 +1,4 @@
-import { Company } from "@/types/company";
-import { Post } from "@/types/feed";
-import { User } from "@/types/user";
+import { Company } from "../types";
 
 export const COMPANIES: Record<string, Company> = {
   acme: {
@@ -51,7 +49,7 @@ export const COMPANIES: Record<string, Company> = {
       ],
       officeLocation: {
         address: "105 Jessie St, San Francisco, CA 94105, USA",
-        mapImage: "https://picsum.photos/seed/map/800/400", // Placeholder for map
+        mapImage: "https://picsum.photos/seed/map/800/400",
       },
     },
     employees: [
@@ -422,102 +420,3 @@ export const COMPANIES: Record<string, Company> = {
     },
   },
 };
-
-export const USERS: Record<string, User> = {
-  sarahj: {
-    name: "Sarah Jenkins",
-    username: "sarahj",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
-    bio: "Senior Frontend Developer | React | Next.js | UI/UX Enthusiast",
-    location: "London, UK",
-    professional: [
-      {
-        id: 1,
-        role: "Senior Frontend Developer",
-        institutionName: "TechFlow",
-        startDate: "2021",
-        endDate: "Present",
-      },
-      {
-        id: 2,
-        role: "Frontend Developer",
-        institutionName: "WebSolutions",
-        startDate: "2018",
-        endDate: "2021",
-      },
-    ],
-    education: [
-      {
-        id: 1,
-        role: "BSc Computer Science",
-        institutionName: "University of London",
-        startDate: "2014",
-        endDate: "2018",
-      },
-    ],
-    skills: ["React", "TypeScript", "Tailwind CSS", "Node.js", "GraphQL"],
-    hobbies: ["Hiking", "Photography", "Cooking"],
-  },
-};
-
-export const POSTS: Post[] = [
-  {
-    id: "1",
-    author: {
-      name: "Acme Corp",
-      avatar: "https://api.dicebear.com/7.x/initials/svg?seed=AC",
-      type: "company",
-      username: "acme",
-      theme: {
-        primary: "#0066cc",
-        primaryText: "#ffffffff",
-        secondary: "#e6f0ff",
-        secondaryText: "#000000ff",
-        action: "#ff9900",
-        actionText: "#ffffffff",
-      },
-    },
-    content:
-      "We are thrilled to announce our Series B funding round led by TopTier Ventures! 🚀 This milestone will help us accelerate our mission to revolutionize the industry.",
-    createdAt: "2 hours ago",
-    likes: 124,
-    comments: 18,
-  },
-  {
-    id: "2",
-    author: {
-      name: "Sarah Jenkins",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
-      type: "user",
-      username: "sarahj",
-    },
-    content:
-      "Just finished a great workshop on React Server Components. The performance improvements are mind-blowing! #NextJS #React #WebDev",
-    createdAt: "5 hours ago",
-    likes: 45,
-    comments: 7,
-  },
-  {
-    id: "3",
-    author: {
-      name: "TechFlow",
-      avatar: "https://api.dicebear.com/7.x/initials/svg?seed=TF",
-      type: "company",
-      username: "techflow",
-      theme: {
-        primary: "#8a2be2",
-        secondary: "#f3e6ff",
-        action: "#00cc99",
-        primaryText: "#ffffffff",
-        secondaryText: "#000000ff",
-        actionText: "#000000ff",
-      },
-    },
-    content:
-      "Our new API documentation is live! Check it out to see how you can integrate our services into your workflow seamlessly.",
-    image: "https://picsum.photos/seed/techflow/800/400",
-    createdAt: "1 day ago",
-    likes: 89,
-    comments: 12,
-  },
-];
