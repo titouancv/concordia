@@ -1,4 +1,4 @@
-import prisma from "../lib/prisma";
+import { prisma } from "../lib/db";
 import type { Experience, Post, User, Company, Theme } from "@prisma/client";
 
 type PostWithRelations = Post & {
