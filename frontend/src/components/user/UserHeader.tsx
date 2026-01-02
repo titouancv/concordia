@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { MapPin, Briefcase } from "lucide-react";
 import { InlineMenu } from "../InlineMenu";
-import { DEFAULT_THEME } from "@/types/app";
 
 interface UserHeaderProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -61,7 +60,7 @@ export function UserHeader({ user }: UserHeaderProps) {
           </div>
         </div>
 
-        <InlineMenu tabs={tabs} theme={DEFAULT_THEME} />
+        <InlineMenu tabs={tabs} />
       </div>
     </div>
   );

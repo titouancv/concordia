@@ -1,9 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
 import { Search } from "lucide-react";
 import { UserRecap } from "@/types/user";
 import { Theme } from "@/types/app";
@@ -30,14 +27,7 @@ export function EmployeeList({ employees, theme }: EmployeeListProps) {
         <input
           type="text"
           placeholder="Search by name or role..."
-          className="w-full pl-10 pr-4 py-3 rounded-full"
-          style={
-            {
-              "--ring-color": theme.primary,
-              backgroundColor: theme.primaryText,
-              color: theme.primary,
-            } as any
-          }
+          className="w-full pl-10 pr-4 py-3 rounded-full bg-[var(--primaryText)] text-[var(--primary)] [--ring-color:var(--primary)]"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
@@ -50,10 +40,7 @@ export function EmployeeList({ employees, theme }: EmployeeListProps) {
       </div>
 
       {filteredEmployees.length === 0 && (
-        <div
-          className="text-center py-12 "
-          style={{ color: theme.secondaryText }}
-        >
+        <div className="text-center py-12 text-[var(--secondaryText)]">
           {`No employees found matching "${searchTerm}"`}
         </div>
       )}

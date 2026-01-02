@@ -36,23 +36,11 @@ export default async function CompanyAboutPage({
 
         {/* Vision & Mission */}
         <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div
-            className=" p-6 rounded-sm"
-            style={{
-              backgroundColor: company.theme.primaryText,
-              color: company.theme.primary,
-            }}
-          >
+          <div className=" p-6 rounded-sm bg-[var(--primaryText)] text-[var(--primary)]">
             <h3 className="text-xl font-bold mb-3">Mission</h3>
             <p>{company.about.mission}</p>
           </div>
-          <div
-            className=" p-6 rounded-sm"
-            style={{
-              backgroundColor: company.theme.primaryText,
-              color: company.theme.primary,
-            }}
-          >
+          <div className=" p-6 rounded-sm bg-[var(--primaryText)] text-[var(--primary)]">
             <h3 className="text-xl font-bold mb-3">Vision</h3>
             <p>{company.about.vision}</p>
           </div>
@@ -91,13 +79,7 @@ export default async function CompanyAboutPage({
       {/* Sticky Sidebar */}
       <div className="lg:col-span-1">
         <div className="sticky top-24 space-y-6">
-          <div
-            className=" rounded-sm p-6 shadow-sm"
-            style={{
-              backgroundColor: company.theme.primaryText,
-              color: company.theme.primary,
-            }}
-          >
+          <div className=" rounded-sm p-6 shadow-sm bg-[var(--primaryText)] text-[var(--primary)]">
             <h3 className="text-lg font-bold mb-6">Key Figures</h3>
 
             <div className="space-y-6">

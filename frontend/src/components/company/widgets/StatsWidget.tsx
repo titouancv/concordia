@@ -14,13 +14,9 @@ export function StatsWidget({ stats, theme }: StatsWidgetProps) {
       {stats.map((stat, index) => (
         <div
           key={index}
-          className="backdrop-blur-sm rounded-sm p-6 text-center"
-          style={{ backgroundColor: theme.primary }}
+          className="backdrop-blur-sm rounded-sm p-6 text-center bg-[var(--primary)]"
         >
-          <div
-            className="text-3xl font-bold mb-2"
-            style={{ color: theme.secondary }}
-          >
+          <div className="text-3xl font-bold mb-2 text-[var(--secondary)]">
             {stat.value}
           </div>
           <div className="text-sm text-[var(--muted-foreground)] uppercase tracking-wider">

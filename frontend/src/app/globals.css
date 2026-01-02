@@ -6,20 +6,20 @@
 }
 
 :root {
-  --primary: #d8d8d8;
-  --secondary: #c7c7c7;
+  --primary: #ffffff;
+  --secondary: #f1f1ef;
   --action: #ff4500; /* Orange/Red vivid */
-  --primaryText: #ffffff;
-  --secondaryText: #000000;
+  --primaryText: #373530;
+  --secondaryText: #787774;
   --actionText: #000000;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --primary: #1d1d1d;
-    --secondary: #363636;
-    --primaryText: #ffffff;
-    --secondaryText: #ffffff;
+    --primary: #191919;
+    --secondary: #252525;
+    --primaryText: #d4d4d4;
+    --secondaryText: #9b9b9b;
   }
 }
 

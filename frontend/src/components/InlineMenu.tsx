@@ -1,6 +1,5 @@
 "use client";
 
-import { Theme } from "@/types/app";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -11,10 +10,9 @@ interface Tab {
 
 interface InlineMenuProps {
   tabs: Tab[];
-  theme: Theme;
 }
 
-export function InlineMenu({ tabs, theme }: InlineMenuProps) {
+export function InlineMenu({ tabs }: InlineMenuProps) {
   const pathname = usePathname();
   const isActive = (path: string) => pathname === path;
 
@@ -24,20 +22,12 @@ export function InlineMenu({ tabs, theme }: InlineMenuProps) {
         <Link
           key={tab.name}
           href={tab.href}
-          className={
-            "py-1 px-4 rounded-full hover:font-bold font-medium transition-colors whitespace-nowrap"
-          }
-          style={
+          className={`py-1 px-4 rounded-full font-bold font-medium transition-colors whitespace-nowrap
+          ${
             isActive(tab.href)
-              ? {
-                  backgroundColor: theme.primary,
-                  color: theme.primaryText,
-                }
-              : {
-                  backgroundColor: "transparent",
-                  color: theme.primary,
-                }
-          }
+              ? "bg-[var(--primary)] text-[var(--primaryText)]"
+              : "bg-transparent text-[var(--secondaryText)] hover:text-[var(--action)]"
+          }`}
         >
           {tab.name}
         </Link>

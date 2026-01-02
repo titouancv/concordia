@@ -36,22 +36,10 @@ export default async function CompanyHomePage({
       />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div
-          className=" rounded-sm p-8 h-64 flex items-center justify-center"
-          style={{
-            backgroundColor: company.theme.primary,
-            color: company.theme.primaryText,
-          }}
-        >
+        <div className=" rounded-sm p-8 h-64 flex items-center justify-center bg-[var(--primary)] text-[var(--primaryText)]">
           Video Presentation Widget Placeholder
         </div>
-        <div
-          className=" rounded-sm p-8 h-64 flex items-center justify-center "
-          style={{
-            backgroundColor: company.theme.primary,
-            color: company.theme.primaryText,
-          }}
-        >
+        <div className=" rounded-sm p-8 h-64 flex items-center justify-center bg-[var(--primary)] text-[var(--primaryText)]">
           Testimonials Widget Placeholder
         </div>
       </div>

@@ -31,14 +31,10 @@ export default async function CompanyCareerPage({
           company.jobs.map((job: Job) => (
             <div
               key={job.id}
-              className="group rounded-sm p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:border-[var(--company-primary)] transition-all hover:shadow-sm"
-              style={{
-                backgroundColor: company.theme.primaryText,
-                color: company.theme.primary,
-              }}
+              className="group rounded-sm p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:border-[var(--primary)] transition-all hover:shadow-sm bg-[var(--primaryText)] text-[var(--primary)]"
             >
               <div>
-                <h3 className="text-xl font-bold mb-2 group-hover:text-[var(--company-primary)] transition-colors">
+                <h3 className="text-xl font-bold mb-2 group-hover:text-[var(--primary)] transition-colors">
                   {job.title}
                 </h3>
                 <div className="flex flex-wrap gap-4 text-sm ">
@@ -58,13 +54,7 @@ export default async function CompanyCareerPage({
                 </div>
               </div>
 
-              <button
-                className="px-6 py-3 rounded-full font-semibold  flex items-center gap-2 transition-transform group-hover:translate-x-1"
-                style={{
-                  backgroundColor: company.theme.action,
-                  color: company.theme.actionText,
-                }}
-              >
+              <button className="px-6 py-3 rounded-full font-semibold  flex items-center gap-2 transition-transform group-hover:translate-x-1 bg-[var(--action)] text-[var(--actionText)]">
                 Apply Now
                 <ArrowRight className="w-4 h-4" />
               </button>
