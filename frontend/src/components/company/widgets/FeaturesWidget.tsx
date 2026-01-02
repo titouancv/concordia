@@ -1,5 +1,5 @@
 import { Feature } from "@/types/widget";
-import { WidgetCard } from "./WidgetCard";
+import { Card } from "../../layout/Card";
 import { TitleHeader } from "@/components/layout/TitleHeader";
 
 interface FeaturesWidgetProps {
@@ -18,13 +18,13 @@ export function FeaturesWidget({ features }: FeaturesWidgetProps) {
               index === 0 || index === 1 ? "md:col-span-1 lg:col-span-1" : "" // Adjust spanning if needed to match layout
             }`}
           >
-            <WidgetCard isInverted={true}>
+            <Card isInverted={true}>
               <div className="aspect-video rounded-sm bg-muted mb-6 w-full object-cover" />
               <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
               <p className="text-muted-foreground">
                 {feature.description} dddddd
               </p>
-            </WidgetCard>
+            </Card>
           </div>
         ))}
       </div>

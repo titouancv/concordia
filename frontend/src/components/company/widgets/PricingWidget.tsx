@@ -1,6 +1,6 @@
 import { TitleHeader } from "@/components/layout/TitleHeader";
 import { PricingPlan } from "@/types/widget";
-import { WidgetCard, WidgetCardStyle } from "./WidgetCard";
+import { Card, CardStyle } from "../../layout/Card";
 
 interface PricingWidgetProps {
   plans: PricingPlan[];
@@ -16,13 +16,9 @@ export function PricingWidget({ plans }: PricingWidgetProps) {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {plans.map((plan, index) => (
           <div key={index} className={`relative `}>
-            <WidgetCard
+            <Card
               isInverted={true}
-              style={
-                plan.isPopular
-                  ? WidgetCardStyle.ACTION
-                  : WidgetCardStyle.PRIMARY
-              }
+              style={plan.isPopular ? CardStyle.ACTION : CardStyle.PRIMARY}
             >
               {plan.isPopular && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-[var(--action)] text-[var(--actionText)] text-xs font-bold rounded-full">
@@ -66,7 +62,7 @@ export function PricingWidget({ plans }: PricingWidgetProps) {
                   </li>
                 ))}
               </ul>
-            </WidgetCard>
+            </Card>
           </div>
         ))}
       </div>

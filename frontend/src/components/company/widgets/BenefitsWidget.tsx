@@ -1,5 +1,5 @@
 import { Benefit } from "@/types/widget";
-import { WidgetCard } from "./WidgetCard";
+import { Card } from "../../layout/Card";
 import { TitleHeader } from "@/components/layout/TitleHeader";
 
 interface BenefitsWidgetProps {
@@ -13,7 +13,7 @@ export function BenefitsWidget({ benefits }: BenefitsWidgetProps) {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {benefits.map((benefit, index) => (
           <div key={index}>
-            <WidgetCard isInverted={true}>
+            <Card isInverted={true}>
               <div className="w-12 h-12 rounded-sm bg-[var(--primary)]/10 flex items-center justify-center mb-6 text-[var(--primary)]">
                 {/* Placeholder Icon */}
                 <div className="w-6 h-6 bg-current rounded-sm" />
@@ -22,7 +22,7 @@ export function BenefitsWidget({ benefits }: BenefitsWidgetProps) {
               <p className="text-muted-foreground leading-relaxed">
                 {benefit.description}
               </p>
-            </WidgetCard>
+            </Card>
           </div>
         ))}
       </div>

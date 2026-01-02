@@ -1,5 +1,5 @@
 import { TitleHeader } from "@/components/layout/TitleHeader";
-import { WidgetCard } from "./WidgetCard";
+import { Card } from "../../layout/Card";
 
 interface StatsWidgetProps {
   stats: {
@@ -15,14 +15,14 @@ export function StatsWidget({ stats }: StatsWidgetProps) {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {stats.map((stat, index) => (
           <div key={index}>
-            <WidgetCard>
+            <Card>
               <div className="text-3xl font-bold mb-2 text-[var(--primaryText)]">
                 {stat.value}
               </div>
               <div className="text-sm text-[var(--primaryText)] uppercase tracking-wider">
                 {stat.label}
               </div>
-            </WidgetCard>
+            </Card>
           </div>
         ))}
       </div>

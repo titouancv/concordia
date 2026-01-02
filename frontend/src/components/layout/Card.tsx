@@ -1,34 +1,39 @@
-export enum WidgetCardStyle {
+export enum CardStyle {
   PRIMARY,
   ACTION,
   TRANSPARENT,
 }
-interface WidgetCardProps {
-  style?: WidgetCardStyle;
+interface CardProps {
+  style?: CardStyle;
   isInverted?: boolean;
   children?: React.ReactNode;
+  isPaddingDisabled?: boolean;
 }
 
-export function WidgetCard({
-  style = WidgetCardStyle.PRIMARY,
+export function Card({
+  style = CardStyle.PRIMARY,
   isInverted = false,
+  isPaddingDisabled = false,
   children,
-}: WidgetCardProps) {
+}: CardProps) {
   let cardStyle = isInverted
-    ? style === WidgetCardStyle.ACTION
+    ? style === CardStyle.ACTION
       ? "border border-[var(--action)] bg-[var(--action)]/5 text-[var(--secondaryText)]"
       : "border border-[var(--primary)] bg-[var(--primary)]/5 text-[var(--secondaryText)]"
-    : style === WidgetCardStyle.ACTION
+    : style === CardStyle.ACTION
     ? " bg-[var(--action)] text-[var(--actionText)]"
     : " bg-[var(--primary)] text-[var(--primaryText)]";
 
-  if (style === WidgetCardStyle.TRANSPARENT) {
+  if (style === CardStyle.TRANSPARENT) {
     cardStyle = "text-[var(--secondaryText)]";
+  }
+  if (isPaddingDisabled) {
+    cardStyle += " p-0";
+  } else {
+    cardStyle += " p-6";
   }
 
   return (
-    <div className={`h-full w-full p-4 rounded-sm ${cardStyle}`}>
-      {children}
-    </div>
+    <div className={`h-full w-full rounded-sm ${cardStyle}`}>{children}</div>
   );
 }

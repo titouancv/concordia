@@ -49,7 +49,7 @@ export const COMPANIES: Record<string, Company> = {
         },
       ],
       officeLocation: {
-        address: "123 Innovation Way, San Francisco, CA 94105",
+        address: "105 Jessie St, San Francisco, CA 94105, USA",
         mapImage: "https://picsum.photos/seed/map/800/400", // Placeholder for map
       },
     },

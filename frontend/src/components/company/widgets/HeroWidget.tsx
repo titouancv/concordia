@@ -1,4 +1,4 @@
-import { WidgetCard } from "./WidgetCard";
+import { Card } from "../../layout/Card";
 
 interface HeroWidgetProps {
   title: string;
@@ -15,7 +15,7 @@ export function HeroWidget({
   ctaLink,
 }: HeroWidgetProps) {
   return (
-    <WidgetCard>
+    <Card>
       <div className=" flex flex-col md:flex-row items-center gap-12">
         <div className="flex-1">
           <h2 className="text-4xl md:text-6xl font-bold mb-6 text-white leading-tight">
@@ -45,6 +45,6 @@ export function HeroWidget({
           </div>
         </div>
       </div>
-    </WidgetCard>
+    </Card>
   );
 }
