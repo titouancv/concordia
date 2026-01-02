@@ -1,12 +1,56 @@
 # Concordia Backend
 
-Backend GraphQL API pour l'application Concordia.
+Backend GraphQL API pour l'application Concordia avec Prisma et PostgreSQL.
+
+## Prérequis
+
+- Node.js 18+
+- PostgreSQL 14+
 
 ## Installation
 
 ```bash
 npm install
 ```
+
+## Configuration de la base de données
+
+1. Créer une base de données PostgreSQL nommée `concordia`
+
+2. Configurer le fichier `.env` avec votre URL de connexion :
+
+```env
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/concordia?schema=public"
+```
+
+3. Générer le client Prisma :
+
+```bash
+npm run db:generate
+```
+
+4. Appliquer les migrations :
+
+```bash
+npm run db:push
+```
+
+5. Peupler la base avec les données de test :
+
+```bash
+npm run db:seed
+```
+
+## Scripts de base de données
+
+| Commande              | Description                          |
+| --------------------- | ------------------------------------ |
+| `npm run db:generate` | Génère le client Prisma              |
+| `npm run db:migrate`  | Applique les migrations en dev       |
+| `npm run db:push`     | Pousse le schéma sans migration      |
+| `npm run db:seed`     | Peuple la base avec les données mock |
+| `npm run db:studio`   | Ouvre Prisma Studio                  |
+| `npm run db:reset`    | Réinitialise la base de données      |
 
 ## Développement
 

@@ -60,4 +60,27 @@ export const POSTS: Post[] = [
     likes: 89,
     comments: 12,
   },
+  {
+    id: "4",
+    author: {
+      name: "TechFlow",
+      avatar: "https://api.dicebear.com/7.x/initials/svg?seed=TF",
+      type: "company",
+      username: "techflow",
+      theme: {
+        primary: "#8a2be2",
+        secondary: "#f3e6ff",
+        action: "#00cc99",
+        primaryText: "#ffffffff",
+        secondaryText: "#000000ff",
+        actionText: "#000000ff",
+      },
+    },
+    content:
+      "Our new API documentation is live! Check it out to see how you can integrate our services into your workflow seamlessly.",
+    image: "https://picsum.photos/seed/techflow/800/400",
+    createdAt: "1 day ago",
+    likes: 89,
+    comments: 12,
+  },
 ];

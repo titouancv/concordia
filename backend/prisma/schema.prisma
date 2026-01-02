@@ -1,0 +1,223 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Theme for companies
+model Theme {
+  id            String    @id @default(cuid())
+  primary       String
+  secondary     String
+  action        String
+  primaryText   String
+  secondaryText String
+  actionText    String
+  company       Company?
+  posts         Post[]
+}
+
+// User model
+model User {
+  id           String       @id @default(cuid())
+  name         String
+  username     String       @unique
+  avatar       String
+  bio          String
+  location     String
+  skills       String[]
+  hobbies      String[]
+  experiences  Experience[]
+  posts        Post[]
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+}
+
+// Experience (professional or education)
+model Experience {
+  id              String   @id @default(cuid())
+  type            String   // "professional" or "education"
+  role            String
+  institutionName String
+  startDate       String
+  endDate         String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId          String
+}
+
+// Company model
+model Company {
+  id          String        @id @default(cuid())
+  name        String
+  slug        String        @unique
+  logo        String
+  cover       String
+  description String
+  location    String
+  website     String
+  theme       Theme         @relation(fields: [themeId], references: [id])
+  themeId     String        @unique
+  stats       CompanyStats?
+  about       CompanyAbout?
+  employees   Employee[]
+  jobs        Job[]
+  widgets     Widgets?
+  posts       Post[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+// Company statistics
+model CompanyStats {
+  id          String  @id @default(cuid())
+  employees   Int
+  founded     Int
+  genderRatio String
+  lastFunding String
+  totalRaised String
+  company     Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  companyId   String  @unique
+}
+
+// Company about section
+model CompanyAbout {
+  id              String          @id @default(cuid())
+  history         String
+  mission         String
+  vision          String
+  company         Company         @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  companyId       String          @unique
+  founders        Founder[]
+  officeLocation  OfficeLocation?
+}
+
+// Founder
+model Founder {
+  id       String       @id @default(cuid())
+  name     String
+  role     String
+  avatar   String
+  username String
+  about    CompanyAbout @relation(fields: [aboutId], references: [id], onDelete: Cascade)
+  aboutId  String
+}
+
+// Office location
+model OfficeLocation {
+  id       String       @id @default(cuid())
+  address  String
+  mapImage String
+  about    CompanyAbout @relation(fields: [aboutId], references: [id], onDelete: Cascade)
+  aboutId  String       @unique
+}
+
+// Employee (user recap for company)
+model Employee {
+  id        String  @id @default(cuid())
+  name      String
+  role      String
+  avatar    String
+  username  String
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  companyId String
+}
+
+// Job listing
+model Job {
+  id        String  @id @default(cuid())
+  title     String
+  type      String
+  location  String
+  remote    Boolean
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  companyId String
+}
+
+// Widgets container
+model Widgets {
+  id           String        @id @default(cuid())
+  company      Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  companyId    String        @unique
+  stats        Stat[]
+  benefits     Benefit[]
+  processSteps Step[]
+  features     Feature[]
+  pricingPlans PricingPlan[]
+  faqItems     FAQItem[]
+}
+
+model Stat {
+  id        String  @id @default(cuid())
+  label     String
+  value     String
+  widgets   Widgets @relation(fields: [widgetsId], references: [id], onDelete: Cascade)
+  widgetsId String
+}
+
+model Benefit {
+  id          String  @id @default(cuid())
+  title       String
+  description String
+  widgets     Widgets @relation(fields: [widgetsId], references: [id], onDelete: Cascade)
+  widgetsId   String
+}
+
+model Step {
+  id          String  @id @default(cuid())
+  title       String
+  description String
+  widgets     Widgets @relation(fields: [widgetsId], references: [id], onDelete: Cascade)
+  widgetsId   String
+}
+
+model Feature {
+  id          String  @id @default(cuid())
+  title       String
+  description String
+  image       String?
+  widgets     Widgets @relation(fields: [widgetsId], references: [id], onDelete: Cascade)
+  widgetsId   String
+}
+
+model PricingPlan {
+  id          String   @id @default(cuid())
+  name        String
+  price       String
+  description String
+  features    String[]
+  isPopular   Boolean  @default(false)
+  ctaText     String
+  widgets     Widgets  @relation(fields: [widgetsId], references: [id], onDelete: Cascade)
+  widgetsId   String
+}
+
+model FAQItem {
+  id        String  @id @default(cuid())
+  question  String
+  answer    String
+  widgets   Widgets @relation(fields: [widgetsId], references: [id], onDelete: Cascade)
+  widgetsId String
+}
+
+// Post model
+model Post {
+  id         String   @id @default(cuid())
+  content    String
+  image      String?
+  createdAt  DateTime @default(now())
+  likes      Int      @default(0)
+  comments   Int      @default(0)
+  // Author can be either a User or a Company
+  authorUser User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String?
+  authorCompany Company? @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  companyId  String?
+  // Theme for company posts
+  theme      Theme?   @relation(fields: [themeId], references: [id])
+  themeId    String?
+}
