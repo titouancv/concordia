@@ -1,5 +1,5 @@
-import { Theme } from "./app";
 import { UserRecap } from "./user";
+import { Benefit, FAQItem, Feature, PricingPlan, Stat, Step } from "./widget";
 
 export interface CompanyStats {
   employees: number;
@@ -30,12 +30,29 @@ export interface Job {
   remote: boolean;
 }
 
+export interface Widgets {
+  benefits?: Benefit[];
+  faqItems?: FAQItem[];
+  processSteps?: Step[];
+  features?: Feature[];
+  pricingPlans?: PricingPlan[];
+  stats?: Stat[];
+}
+
 export interface Company {
   name: string;
   slug: string;
   logo: string;
   cover: string;
-  theme: Theme;
+  theme: {
+    primary: string;
+    secondary: string;
+    action: string;
+    primaryText: string;
+    secondaryText: string;
+    actionText: string;
+  };
+  widgets: Widgets;
   description: string;
   location: string;
   website: string;

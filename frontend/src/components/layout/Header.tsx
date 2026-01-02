@@ -13,12 +13,14 @@ export function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 p-4 flex items-center justify-start px-6 md:px-12">
       <div className="bg-[var(--primary)] rounded-full">
-        <nav className="flex items-center px-2">
+        <nav className="flex items-center">
           <Link
             href="/"
             className={cn(
               "p-2 rounded-full transition-colors",
-              isActive("/") ? "text-[var(--action)]" : "text-[var(--primary)]]"
+              isActive("/")
+                ? "bg-[var(--action)] text-[var(--actionText)]"
+                : "text-[var(--primaryText)] hover:text-[var(--action)]"
             )}
           >
             <Home className="w-6 h-6" />
@@ -28,8 +30,8 @@ export function Header() {
             className={cn(
               "p-2 rounded-full transition-colors",
               isActive("/settings")
-                ? "text-[var(--action)]]"
-                : "text-[var(--primary)]"
+                ? "bg-[var(--action)] text-[var(--actionText)]"
+                : "text-[var(--primaryText)] hover:text-[var(--action)]"
             )}
           >
             <Settings className="w-6 h-6" />

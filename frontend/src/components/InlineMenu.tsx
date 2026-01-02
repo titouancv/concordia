@@ -22,7 +22,7 @@ export function InlineMenu({ tabs }: InlineMenuProps) {
         <Link
           key={tab.name}
           href={tab.href}
-          className={`py-1 px-4 rounded-full font-bold font-medium transition-colors whitespace-nowrap
+          className={`py-1 px-4 rounded-full font-bold transition-colors whitespace-nowrap
           ${
             isActive(tab.href)
               ? "bg-[var(--primary)] text-[var(--primaryText)]"

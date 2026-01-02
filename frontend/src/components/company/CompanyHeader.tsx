@@ -51,9 +51,8 @@ export function CompanyHeader({ company }: CompanyHeaderProps) {
               Follow
             </button>
           </div>
-
-          <InlineMenu tabs={tabs} />
         </div>
+        <InlineMenu tabs={tabs} />
       </div>
     </div>
   );

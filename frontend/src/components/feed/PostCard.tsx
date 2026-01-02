@@ -34,9 +34,9 @@ export function PostCard({ post }: PostCardProps) {
             }
           >
             <div
-              className={
-                "w-10 h-10 rounded-full overflow-hidden relative border"
-              }
+              className={`w-10 h-10 ${
+                isCompany ? "rounded-sm" : "rounded-full"
+              } overflow-hidden relative border`}
             >
               <Image
                 src={post.author.avatar}

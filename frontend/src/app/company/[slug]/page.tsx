@@ -2,6 +2,11 @@ import { notFound } from "next/navigation";
 import { api } from "@/services/api";
 import { HeroWidget } from "@/components/company/widgets/HeroWidget";
 import { StatsWidget } from "@/components/company/widgets/StatsWidget";
+import { BenefitsWidget } from "@/components/company/widgets/BenefitsWidget";
+import { ProcessWidget } from "@/components/company/widgets/ProcessWidget";
+import { FeaturesWidget } from "@/components/company/widgets/FeaturesWidget";
+import { PricingWidget } from "@/components/company/widgets/PricingWidget";
+import { FAQWidget } from "@/components/company/widgets/FAQWidget";
 
 export default async function CompanyHomePage({
   params,
@@ -15,34 +20,26 @@ export default async function CompanyHomePage({
     notFound();
   }
 
+  const widgets = company.widgets ?? {};
+
   return (
-    <div>
+    <div className="flex flex-col gap-16">
       <HeroWidget
         title={`Welcome to ${company.name}`}
         subtitle={company.description}
         ctaText="View Open Positions"
         ctaLink={`/company/${company.slug}/career`}
-        theme={company.theme}
       />
 
-      <StatsWidget
-        theme={company.theme}
-        stats={[
-          { label: "Employees", value: company.stats.employees.toString() },
-          { label: "Founded", value: company.stats.founded.toString() },
-          { label: "Raised", value: company.stats.totalRaised },
-          { label: "Funding", value: company.stats.lastFunding },
-        ]}
-      />
+      {widgets.stats && <StatsWidget stats={widgets.stats} />}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className=" rounded-sm p-8 h-64 flex items-center justify-center bg-[var(--primary)] text-[var(--primaryText)]">
-          Video Presentation Widget Placeholder
-        </div>
-        <div className=" rounded-sm p-8 h-64 flex items-center justify-center bg-[var(--primary)] text-[var(--primaryText)]">
-          Testimonials Widget Placeholder
-        </div>
-      </div>
+      {widgets.benefits && <BenefitsWidget benefits={widgets.benefits} />}
+      {widgets.processSteps && <ProcessWidget steps={widgets.processSteps} />}
+
+      {widgets.features && <FeaturesWidget features={widgets.features} />}
+      {widgets.pricingPlans && <PricingWidget plans={widgets.pricingPlans} />}
+
+      {widgets.faqItems && <FAQWidget items={widgets.faqItems} />}
     </div>
   );
 }

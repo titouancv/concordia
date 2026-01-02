@@ -1,4 +1,4 @@
-import { Theme } from "@/types/app";
+import { WidgetCard } from "./WidgetCard";
 
 interface HeroWidgetProps {
   title: string;
@@ -6,7 +6,6 @@ interface HeroWidgetProps {
   ctaText: string;
   ctaLink: string;
   image?: string;
-  theme: Theme;
 }
 
 export function HeroWidget({
@@ -14,22 +13,38 @@ export function HeroWidget({
   subtitle,
   ctaText,
   ctaLink,
-  theme,
 }: HeroWidgetProps) {
   return (
-    <div className="bg-[var(--primary)] text-[var(--primaryText)] rounded-sm p-8 md:p-12 mb-8 flex flex-col md:flex-row items-center gap-8">
-      <div className="flex-1">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
-          {title}
-        </h2>
-        <p className="text-lg mb-8 opacity-90">{subtitle}</p>
-        <a
-          href={ctaLink}
-          className="inline-block px-8 py-3 rounded-full font-semibold transition-transform hover:scale-105 bg-[var(--action)] text-[var(--actionText)]"
-        >
-          {ctaText}
-        </a>
+    <WidgetCard>
+      <div className=" flex flex-col md:flex-row items-center gap-12">
+        <div className="flex-1">
+          <h2 className="text-4xl md:text-6xl font-bold mb-6 text-white leading-tight">
+            {title}
+          </h2>
+          <p className="text-lg mb-8 opacity-90 max-w-lg leading-relaxed">
+            {subtitle}
+          </p>
+          <div className="flex flex-wrap gap-4">
+            <button className="px-8 py-4 rounded-full font-semibold bg-[var(--action)] text-[var(--actionText)] transition-colors">
+              View Demo
+            </button>
+            <a
+              href={ctaLink}
+              className="inline-block px-8 py-4 rounded-full font-semibold transition-transform hover:scale-105 border border-white/20 hover:bg-white/10"
+            >
+              {ctaText}
+            </a>
+          </div>
+        </div>
+        <div className="flex-1 w-full">
+          <div className="aspect-square md:aspect-[4/3] rounded-sm bg-white/10 border border-white/10 backdrop-blur-sm relative overflow-hidden">
+            {/* Placeholder for Hero Image */}
+            <div className="absolute inset-0 flex items-center justify-center text-white/20 font-bold text-xl">
+              Hero Image
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </WidgetCard>
   );
 }

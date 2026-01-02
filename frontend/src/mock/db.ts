@@ -106,6 +106,125 @@ export const COMPANIES: Record<string, Company> = {
         remote: false,
       },
     ],
+    widgets: {
+      stats: [
+        { label: "Employees", value: "120" },
+        { label: "Founded", value: "2015" },
+        { label: "Raised", value: "$45M" },
+        { label: "Funding", value: "Series B" },
+      ],
+      benefits: [
+        {
+          title: "Global Reach",
+          description:
+            "Connect with talent and opportunities from all around the world without barriers.",
+        },
+        {
+          title: "Secure Platform",
+          description:
+            "Enterprise-grade security ensures your data and communications are always protected.",
+        },
+        {
+          title: "Real-time Analytics",
+          description:
+            "Get insights into your performance with our advanced real-time dashboard.",
+        },
+      ],
+      processSteps: [
+        {
+          title: "Create Account",
+          description: "Sign up in seconds and set up your company profile.",
+        },
+        {
+          title: "Post Opportunities",
+          description:
+            "Share your job openings or project requirements with the community.",
+        },
+        {
+          title: "Connect & Grow",
+          description:
+            "Match with the right talent and scale your business effectively.",
+        },
+      ],
+      features: [
+        {
+          title: "Advanced Search",
+          description:
+            "Find exactly what you're looking for with powerful filters.",
+        },
+        {
+          title: "Team Collaboration",
+          description:
+            "Invite your team members and manage permissions effortlessly.",
+        },
+        {
+          title: "Automated Reports",
+          description:
+            "Receive weekly updates on your activity and engagement metrics.",
+        },
+        {
+          title: "Custom Branding",
+          description:
+            "Personalize your company page to match your brand identity.",
+        },
+        {
+          title: "API Access",
+          description:
+            "Integrate with your existing tools using our robust API.",
+        },
+      ],
+      pricingPlans: [
+        {
+          name: "Basic",
+          price: "$29",
+          description: "Best for startups and small teams.",
+          features: ["5 Job Posts", "Basic Analytics", "Email Support"],
+          ctaText: "Start Free Trial",
+        },
+        {
+          name: "Pro",
+          price: "$79",
+          description: "Best for growing companies.",
+          features: [
+            "Unlimited Job Posts",
+            "Advanced Analytics",
+            "Priority Support",
+            "Team Collaboration",
+          ],
+          isPopular: true,
+          ctaText: "Start Free Trial",
+        },
+        {
+          name: "Enterprise",
+          price: "$149",
+          description: "Best for large organizations.",
+          features: [
+            "Custom Solutions",
+            "Dedicated Account Manager",
+            "SLA",
+            "SSO Integration",
+          ],
+          ctaText: "Contact Sales",
+        },
+      ],
+      faqItems: [
+        {
+          question: "How do I get started?",
+          answer:
+            "Simply click the 'Get Started' button and follow the registration process. It takes less than 2 minutes.",
+        },
+        {
+          question: "Can I cancel my subscription?",
+          answer:
+            "Yes, you can cancel your subscription at any time from your account settings. No questions asked.",
+        },
+        {
+          question: "Do you offer a free trial?",
+          answer:
+            "Yes, we offer a 14-day free trial on all our paid plans so you can explore the features risk-free.",
+        },
+      ],
+    },
   },
   techflow: {
     name: "TechFlow",
@@ -181,6 +300,125 @@ export const COMPANIES: Record<string, Company> = {
         remote: false,
       },
     ],
+    widgets: {
+      stats: [
+        { label: "Employees", value: "120" },
+        { label: "Founded", value: "2015" },
+        { label: "Raised", value: "$45M" },
+        { label: "Funding", value: "Series B" },
+      ],
+      benefits: [
+        {
+          title: "Global Reach",
+          description:
+            "Connect with talent and opportunities from all around the world without barriers.",
+        },
+        {
+          title: "Secure Platform",
+          description:
+            "Enterprise-grade security ensures your data and communications are always protected.",
+        },
+        {
+          title: "Real-time Analytics",
+          description:
+            "Get insights into your performance with our advanced real-time dashboard.",
+        },
+      ],
+      processSteps: [
+        {
+          title: "Create Account",
+          description: "Sign up in seconds and set up your company profile.",
+        },
+        {
+          title: "Post Opportunities",
+          description:
+            "Share your job openings or project requirements with the community.",
+        },
+        {
+          title: "Connect & Grow",
+          description:
+            "Match with the right talent and scale your business effectively.",
+        },
+      ],
+      features: [
+        {
+          title: "Advanced Search",
+          description:
+            "Find exactly what you're looking for with powerful filters.",
+        },
+        {
+          title: "Team Collaboration",
+          description:
+            "Invite your team members and manage permissions effortlessly.",
+        },
+        {
+          title: "Automated Reports",
+          description:
+            "Receive weekly updates on your activity and engagement metrics.",
+        },
+        {
+          title: "Custom Branding",
+          description:
+            "Personalize your company page to match your brand identity.",
+        },
+        {
+          title: "API Access",
+          description:
+            "Integrate with your existing tools using our robust API.",
+        },
+      ],
+      pricingPlans: [
+        {
+          name: "Basic",
+          price: "$29",
+          description: "Best for startups and small teams.",
+          features: ["5 Job Posts", "Basic Analytics", "Email Support"],
+          ctaText: "Start Free Trial",
+        },
+        {
+          name: "Pro",
+          price: "$79",
+          description: "Best for growing companies.",
+          features: [
+            "Unlimited Job Posts",
+            "Advanced Analytics",
+            "Priority Support",
+            "Team Collaboration",
+          ],
+          isPopular: true,
+          ctaText: "Start Free Trial",
+        },
+        {
+          name: "Enterprise",
+          price: "$149",
+          description: "Best for large organizations.",
+          features: [
+            "Custom Solutions",
+            "Dedicated Account Manager",
+            "SLA",
+            "SSO Integration",
+          ],
+          ctaText: "Contact Sales",
+        },
+      ],
+      faqItems: [
+        {
+          question: "How do I get started?",
+          answer:
+            "Simply click the 'Get Started' button and follow the registration process. It takes less than 2 minutes.",
+        },
+        {
+          question: "Can I cancel my subscription?",
+          answer:
+            "Yes, you can cancel your subscription at any time from your account settings. No questions asked.",
+        },
+        {
+          question: "Do you offer a free trial?",
+          answer:
+            "Yes, we offer a 14-day free trial on all our paid plans so you can explore the features risk-free.",
+        },
+      ],
+    },
   },
 };
 

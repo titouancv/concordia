@@ -6,7 +6,6 @@ export default async function FeedPage() {
 
   return (
     <div className="max-w-2xl mx-auto py-8">
-      <h1 className="text-2xl font-bold mb-6 px-4 md:px-0">Your Feed</h1>
       <div className="space-y-4">
         {posts.map((post) => (
           <PostCard key={post.id} post={post} />

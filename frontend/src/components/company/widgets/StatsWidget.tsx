@@ -1,29 +1,31 @@
-import { Theme } from "@/types/app";
+import { TitleHeader } from "@/components/layout/TitleHeader";
+import { WidgetCard } from "./WidgetCard";
 
 interface StatsWidgetProps {
   stats: {
     label: string;
     value: string;
   }[];
-  theme: Theme;
 }
 
-export function StatsWidget({ stats, theme }: StatsWidgetProps) {
+export function StatsWidget({ stats }: StatsWidgetProps) {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-      {stats.map((stat, index) => (
-        <div
-          key={index}
-          className="backdrop-blur-sm rounded-sm p-6 text-center bg-[var(--primary)]"
-        >
-          <div className="text-3xl font-bold mb-2 text-[var(--secondary)]">
-            {stat.value}
+    <div>
+      <TitleHeader title="Stats" />
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {stats.map((stat, index) => (
+          <div key={index}>
+            <WidgetCard>
+              <div className="text-3xl font-bold mb-2 text-[var(--primaryText)]">
+                {stat.value}
+              </div>
+              <div className="text-sm text-[var(--primaryText)] uppercase tracking-wider">
+                {stat.label}
+              </div>
+            </WidgetCard>
           </div>
-          <div className="text-sm text-[var(--muted-foreground)] uppercase tracking-wider">
-            {stat.label}
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }
