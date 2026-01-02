@@ -1,39 +1,62 @@
 export enum CardStyle {
-  PRIMARY,
-  ACTION,
-  TRANSPARENT,
+  PRIMARY = "PRIMARY",
+  SECONDARY = "SECONDARY",
+  ACTION = "ACTION",
+  TRANSPARENT = "TRANSPARENT",
 }
+
 interface CardProps {
   style?: CardStyle;
   isInverted?: boolean;
-  children?: React.ReactNode;
   isPaddingDisabled?: boolean;
+  isBordered?: boolean;
+  children?: React.ReactNode;
 }
+
+/**
+ * Styles statiques pour Tailwind
+ * ⚠️ aucune interpolation dynamique
+ */
+const CARD_STYLES = {
+  [CardStyle.PRIMARY]: {
+    normal: "bg-[var(--primary)] text-[var(--primaryText)]",
+    inverted:
+      "bg-[var(--primary)]/5 text-[var(--secondaryText)] border-[var(--primary)]",
+  },
+  [CardStyle.SECONDARY]: {
+    normal: "bg-[var(--secondary)] text-[var(--secondaryText)]",
+    inverted:
+      "bg-[var(--secondary)]/5 text-[var(--secondaryText)] border-[var(--secondary)]",
+  },
+  [CardStyle.ACTION]: {
+    normal: "bg-[var(--action)] text-[var(--actionText)]",
+    inverted:
+      "bg-[var(--action)]/5 text-[var(--secondaryText)] border-[var(--action)]",
+  },
+};
 
 export function Card({
   style = CardStyle.PRIMARY,
   isInverted = false,
   isPaddingDisabled = false,
+  isBordered = true,
   children,
 }: CardProps) {
-  let cardStyle = isInverted
-    ? style === CardStyle.ACTION
-      ? "border border-[var(--action)] bg-[var(--action)]/5 text-[var(--secondaryText)]"
-      : "border border-[var(--primary)] bg-[var(--primary)]/5 text-[var(--secondaryText)]"
-    : style === CardStyle.ACTION
-    ? " bg-[var(--action)] text-[var(--actionText)]"
-    : " bg-[var(--primary)] text-[var(--primaryText)]";
+  let className = "h-full w-full rounded-sm";
 
   if (style === CardStyle.TRANSPARENT) {
-    cardStyle = "text-[var(--secondaryText)]";
-  }
-  if (isPaddingDisabled) {
-    cardStyle += " p-0";
+    className += " text-[var(--secondaryText)]";
   } else {
-    cardStyle += " p-6";
+    className +=
+      " " +
+      (isInverted ? CARD_STYLES[style].inverted : CARD_STYLES[style].normal);
+
+    if (isInverted && isBordered) {
+      className += " border";
+    }
   }
 
-  return (
-    <div className={`h-full w-full rounded-sm ${cardStyle}`}>{children}</div>
-  );
+  className += isPaddingDisabled ? " p-0" : " p-6";
+
+  return <div className={className}>{children}</div>;
 }

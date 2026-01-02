@@ -1,3 +1,4 @@
+import { Theme } from "./app";
 import { UserRecap } from "./user";
 import { Benefit, FAQItem, Feature, PricingPlan, Stat, Step } from "./widget";
 
@@ -44,14 +45,7 @@ export interface Company {
   slug: string;
   logo: string;
   cover: string;
-  theme: {
-    primary: string;
-    secondary: string;
-    action: string;
-    primaryText: string;
-    secondaryText: string;
-    actionText: string;
-  };
+  theme: Theme;
   widgets: Widgets;
   description: string;
   location: string;

@@ -8,22 +8,22 @@
 }
 
 :root {
-  --primary: #ffffff;
-  --secondary: #f1f1ef;
+  --secondary: #ffffff;
+  --primary: #f1f1ef;
   --action: #ff4500; /* Orange/Red vivid */
+  --secondaryText: #373530;
   --primaryText: #373530;
-  --secondaryText: #787774;
-  --actionText: #000000;
+  --actionText: #ffffff;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
-    --primary: #191919;
-    --secondary: #252525;
-    --primaryText: #d4d4d4;
-    --secondaryText: #9b9b9b;
+    --primary: #252525;
+    --secondary: #191919;
+    --primaryText: #9b9b9b;
+    --secondaryText: #d4d4d4;
   }
-}
+} */
 
 body {
   background: var(--secondary);

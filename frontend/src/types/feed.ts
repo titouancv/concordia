@@ -16,4 +16,5 @@ export interface Post {
   createdAt: string;
   likes: number;
   comments: number;
+  theme?: Theme;
 }
