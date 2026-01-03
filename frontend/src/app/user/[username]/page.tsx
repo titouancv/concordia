@@ -10,8 +10,9 @@ export default async function UserHomePage({
 }) {
   const { username } = await params;
   const user = await api.user.get(username);
+  const userHome = await api.user.getHome(username);
 
-  if (!user) {
+  if (!user || !userHome) {
     notFound();
   }
 
@@ -21,7 +22,7 @@ export default async function UserHomePage({
         <section>
           <h2 className="text-xl font-bold mb-4">About</h2>
           <p className=" leading-relaxed">
-            {user.bio}
+            {userHome.bio}
             {/* Add more dummy text if bio is short */}
             <br />
             <br />
@@ -33,8 +34,8 @@ export default async function UserHomePage({
 
         <section>
           <h2 className="text-xl font-bold mb-4">Experience</h2>
-          <div className="space-y-6">
-            {user.professional.map((exp) => (
+          <div className="flex flex-col gap-6">
+            {userHome.professional.map((exp) => (
               <ExperienceCard key={exp.id} exp={exp} />
             ))}
           </div>
@@ -42,8 +43,8 @@ export default async function UserHomePage({
 
         <section>
           <h2 className="text-xl font-bold mb-4">Education</h2>
-          <div className="space-y-6">
-            {user.education.map((exp) => (
+          <div className="flex flex-col gap-6">
+            {userHome.education.map((exp) => (
               <ExperienceCard key={exp.id} exp={exp} />
             ))}
           </div>
@@ -52,7 +53,7 @@ export default async function UserHomePage({
 
       <div className="lg:col-span-1">
         <div className="sticky top-24 space-y-6">
-          <UserKeys user={user} />
+          <UserKeys user={userHome} />
         </div>
       </div>
     </div>

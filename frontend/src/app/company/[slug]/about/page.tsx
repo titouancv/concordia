@@ -59,7 +59,7 @@ export default async function CompanyAboutPage({
       {/* Sticky Sidebar */}
       <div className="lg:col-span-1">
         <div className="sticky top-24 space-y-6">
-          <CompanyKeys company={company} />
+          <CompanyKeys stats={company.stats} />
         </div>
       </div>
     </div>

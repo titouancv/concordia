@@ -1,7 +1,7 @@
 import { Card } from "@/components/layout/Card";
-import { User } from "@/types/user";
+import { UserHome } from "@/types/user";
 
-export default function CompanyKeys({ user }: { user: User }) {
+export default function CompanyKeys({ user }: { user: UserHome }) {
   return (
     <Card>
       <div className="space-y-8">
@@ -9,7 +9,7 @@ export default function CompanyKeys({ user }: { user: User }) {
           <section>
             <h2 className="text-xl font-bold mb-4">Skills</h2>
             <div className="flex flex-wrap gap-2">
-              {user.skills.map((skill) => (
+              {user.skills.map((skill: string) => (
                 <span
                   key={skill}
                   className="px-3 py-1 rounded-full bg-[var(--secondary)] text-sm text-[var(--secondaryText)]"
@@ -25,7 +25,7 @@ export default function CompanyKeys({ user }: { user: User }) {
           <section>
             <h2 className="text-xl font-bold mb-4">Hobbies</h2>
             <div className="flex flex-wrap gap-2">
-              {user.hobbies.map((skill) => (
+              {user.hobbies.map((skill: string) => (
                 <span
                   key={skill}
                   className="px-3 py-1 rounded-full bg-[var(--secondary)] text-sm text-[var(--secondaryText)]"

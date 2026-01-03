@@ -13,9 +13,17 @@ export const typeDefs = `#graphql
   type Experience {
     id: String!
     role: String!
-    institutionName: String!
+    company: CompanyRecap
     startDate: String!
     endDate: String!
+  }
+
+  # Simplified company reference
+  type CompanyRecap {
+    id: String!
+    name: String!
+    slug: String!
+    logo: String!
   }
 
   # Full user profile
@@ -23,8 +31,12 @@ export const typeDefs = `#graphql
     name: String!
     username: String!
     avatar: String!
-    bio: String!
     location: String!
+  }
+
+  # User home details
+  type UserHome {
+    bio: String!
     professional: [Experience!]!
     education: [Experience!]!
     skills: [String!]
@@ -165,6 +177,7 @@ export const typeDefs = `#graphql
     # User queries
     users: [User!]!
     user(username: String!): User
+    userHome(username: String!): UserHome
     
     # Post queries
     posts: [Post!]!

@@ -1,9 +1,9 @@
 import { Users, Calendar, DollarSign, PieChart } from "lucide-react";
 
 import { Card } from "@/components/layout/Card";
-import { Company } from "@/types/company";
+import { CompanyStats } from "@/types/company";
 
-export default function CompanyKeys({ company }: { company: Company }) {
+export default function CompanyKeys({ stats }: { stats: CompanyStats }) {
   return (
     <Card isInverted={true}>
       <h3 className="text-lg font-bold mb-6">Key Figures</h3>
@@ -14,7 +14,7 @@ export default function CompanyKeys({ company }: { company: Company }) {
             <Users className="w-5 h-5" />
             <span>Employees</span>
           </div>
-          <span className="font-semibold">{company.stats.employees}</span>
+          <span className="font-semibold">{stats.employees}</span>
         </div>
 
         <div className="flex items-center justify-between">
@@ -22,7 +22,7 @@ export default function CompanyKeys({ company }: { company: Company }) {
             <Calendar className="w-5 h-5" />
             <span>Founded</span>
           </div>
-          <span className="font-semibold">{company.stats.founded}</span>
+          <span className="font-semibold">{stats.founded}</span>
         </div>
 
         <div className="flex items-center justify-between">
@@ -30,7 +30,7 @@ export default function CompanyKeys({ company }: { company: Company }) {
             <PieChart className="w-5 h-5" />
             <span>Gender Ratio</span>
           </div>
-          <span className="font-semibold">{company.stats.genderRatio}</span>
+          <span className="font-semibold">{stats.genderRatio}</span>
         </div>
 
         <div className="flex items-center justify-between">
@@ -38,7 +38,7 @@ export default function CompanyKeys({ company }: { company: Company }) {
             <DollarSign className="w-5 h-5" />
             <span>Last Funding</span>
           </div>
-          <span className="font-semibold">{company.stats.lastFunding}</span>
+          <span className="font-semibold">{stats.lastFunding}</span>
         </div>
 
         <div className="flex items-center justify-between pt-4">
@@ -47,7 +47,7 @@ export default function CompanyKeys({ company }: { company: Company }) {
             className="text-xl font-bold"
             style={{ color: "var(--company-primary)" }}
           >
-            {company.stats.totalRaised}
+            {stats.totalRaised}
           </span>
         </div>
       </div>

@@ -3,13 +3,14 @@
 import Image from "next/image";
 import { MapPin, Briefcase, Plus } from "lucide-react";
 import { InlineMenu } from "../InlineMenu";
-import { User } from "@/types/user";
+import { User, UserHome } from "@/types/user";
 
 interface UserHeaderProps {
   user: User;
+  userHome: UserHome;
 }
 
-export function UserHeader({ user }: UserHeaderProps) {
+export function UserHeader({ user, userHome }: UserHeaderProps) {
   const baseUrl = `/user/${user.username}`;
 
   const tabs = [
@@ -40,7 +41,7 @@ export function UserHeader({ user }: UserHeaderProps) {
               </button>
             </div>
             <p className="text-lg text-[var(--muted-foreground)] ">
-              {user.bio}
+              {userHome.bio}
             </p>
 
             <div className="flex flex-wrap gap-4 text-sm text-[var(--muted-foreground)]">
@@ -48,12 +49,13 @@ export function UserHeader({ user }: UserHeaderProps) {
                 <MapPin className="w-4 h-4" />
                 {user.location}
               </div>
-              {user.professional.length && (
-                <div className="flex items-center gap-1">
-                  <Briefcase className="w-4 h-4" />
-                  {user.professional[0].institutionName}
-                </div>
-              )}
+              {userHome.professional.length > 0 &&
+                userHome.professional[0].company && (
+                  <div className="flex items-center gap-1">
+                    <Briefcase className="w-4 h-4" />
+                    {userHome.professional[0].company.name}
+                  </div>
+                )}
             </div>
           </div>
         </div>

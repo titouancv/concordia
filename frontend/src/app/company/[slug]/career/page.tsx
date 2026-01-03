@@ -1,7 +1,6 @@
 import JobsCard from "@/components/company/JobsCard";
 import { api } from "@/services/api";
 import { Job } from "@/types/company";
-import { MapPin, Clock, ArrowRight } from "lucide-react";
 
 export default async function CompanyCareerPage({
   params,
@@ -11,7 +10,7 @@ export default async function CompanyCareerPage({
   const { slug } = await params;
   const company = await api.company.get(slug);
 
-  if (!company) {
+  if (!company || !company.jobs) {
     return <div>Company not found</div>;
   }
 

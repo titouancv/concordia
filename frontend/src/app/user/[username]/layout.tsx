@@ -11,14 +11,15 @@ export default async function UserLayout({
 }) {
   const { username } = await params;
   const user = await api.user.get(username);
+  const userHome = await api.user.getHome(username);
 
-  if (!user) {
+  if (!user || !userHome) {
     notFound();
   }
 
   return (
     <div className="min-h-screen bg-[var(--secondary)]">
-      <UserHeader user={user} />
+      <UserHeader user={user} userHome={userHome} />
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-8">{children}</div>
     </div>
   );

@@ -134,19 +134,36 @@ export const GET_USER = gql`
       name
       username
       avatar
-      bio
       location
+    }
+  }
+`;
+
+export const GET_USER_HOME = gql`
+  query GetUserHome($username: String!) {
+    userHome(username: $username) {
+      bio
       professional {
         id
         role
-        institutionName
+        company {
+          id
+          name
+          slug
+          logo
+        }
         startDate
         endDate
       }
       education {
         id
         role
-        institutionName
+        company {
+          id
+          name
+          slug
+          logo
+        }
         startDate
         endDate
       }

@@ -6,3 +6,12 @@ export interface Theme {
   secondaryText: string;
   actionText: string;
 }
+
+export interface Address {
+  number?: string;
+  street?: string;
+  city: string;
+  state?: string;
+  zipCode?: string;
+  country: string;
+}

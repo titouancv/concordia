@@ -110,14 +110,16 @@ export const resolvers = {
 
     // User queries
     users: async () => {
-      return prisma.user.findMany({
-        include: {
-          experiences: true,
-        },
-      });
+      return prisma.user.findMany();
     },
 
     user: async (_: unknown, { username }: { username: string }) => {
+      return prisma.user.findUnique({
+        where: { username },
+      });
+    },
+
+    userHome: async (_: unknown, { username }: { username: string }) => {
       const user = await prisma.user.findUnique({
         where: { username },
         include: {
@@ -133,7 +135,9 @@ export const resolvers = {
 
       // Transform experiences into professional and education arrays
       return {
-        ...user,
+        bio: user.bio,
+        skills: user.skills,
+        hobbies: user.hobbies,
         professional: user.experiences
           .filter(
             (e: Experience & { company: Company | null }) =>
@@ -142,7 +146,14 @@ export const resolvers = {
           .map((e: Experience & { company: Company | null }) => ({
             id: e.id,
             role: e.role,
-            institutionName: e.company?.name || "Unknown",
+            company: e.company
+              ? {
+                  id: e.company.id,
+                  name: e.company.name,
+                  slug: e.company.slug,
+                  logo: e.company.logo,
+                }
+              : null,
             startDate: e.startDate,
             endDate: e.endDate,
           })),
@@ -154,7 +165,14 @@ export const resolvers = {
           .map((e: Experience & { company: Company | null }) => ({
             id: e.id,
             role: e.role,
-            institutionName: e.company?.name || "Unknown",
+            company: e.company
+              ? {
+                  id: e.company.id,
+                  name: e.company.name,
+                  slug: e.company.slug,
+                  logo: e.company.logo,
+                }
+              : null,
             startDate: e.startDate,
             endDate: e.endDate,
           })),

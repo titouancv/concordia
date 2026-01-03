@@ -2,19 +2,20 @@ import { apolloClient } from "@/lib/apollo-client";
 import {
   GET_COMPANY,
   GET_USER,
+  GET_USER_HOME,
   GET_POSTS,
   GET_POSTS_BY_AUTHOR,
   GET_POSTS_BY_COMPANY,
 } from "@/lib/graphql-queries";
 import { Post } from "@/types/feed";
-import { Company } from "@/types/company";
-import { User } from "@/types/user";
+import { Company, CompanyFull } from "@/types/company";
+import { User, UserHome } from "@/types/user";
 
 export const api = {
   company: {
-    get: async (slug: string): Promise<Company | null> => {
+    get: async (slug: string): Promise<CompanyFull | null> => {
       try {
-        const { data } = await apolloClient.query<{ company: Company }>({
+        const { data } = await apolloClient.query<{ company: CompanyFull }>({
           query: GET_COMPANY,
           variables: { slug },
         });
@@ -48,6 +49,18 @@ export const api = {
         return data?.user ?? null;
       } catch (error) {
         console.error("Error fetching user:", error);
+        return null;
+      }
+    },
+    getHome: async (username: string): Promise<UserHome | null> => {
+      try {
+        const { data } = await apolloClient.query<{ userHome: UserHome }>({
+          query: GET_USER_HOME,
+          variables: { username },
+        });
+        return data?.userHome ?? null;
+      } catch (error) {
+        console.error("Error fetching user home:", error);
         return null;
       }
     },
