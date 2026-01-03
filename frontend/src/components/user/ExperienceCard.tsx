@@ -14,6 +14,7 @@ export default function ExperienceCard({ exp }: { exp: Experience }) {
             <Image
               src={exp.company.logo}
               alt={exp.company.name}
+              fill
               className="object-cover w-full h-full"
             />
           </div>

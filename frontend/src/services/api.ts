@@ -4,11 +4,12 @@ import {
   GET_USER,
   GET_USER_HOME,
   GET_POSTS,
+  GET_POST,
   GET_POSTS_BY_AUTHOR,
   GET_POSTS_BY_COMPANY,
 } from "@/lib/graphql-queries";
 import { Post } from "@/types/feed";
-import { Company, CompanyFull } from "@/types/company";
+import { CompanyFull } from "@/types/company";
 import { User, UserHome } from "@/types/user";
 
 export const api = {
@@ -87,6 +88,18 @@ export const api = {
       } catch (error) {
         console.error("Error fetching posts:", error);
         return [];
+      }
+    },
+    getPostWithId: async (postId: string): Promise<Post | null> => {
+      try {
+        const { data } = await apolloClient.query<{ post: Post }>({
+          query: GET_POST,
+          variables: { id: postId },
+        });
+        return data?.post ?? null;
+      } catch (error) {
+        console.error("Error fetching post:", error);
+        return null;
       }
     },
   },
