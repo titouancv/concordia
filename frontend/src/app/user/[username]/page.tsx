@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { api } from "@/services/api";
 import UserKeys from "@/components/user/UserKeys";
+import ExperienceCard from "@/components/user/ExperienceCard";
 
 export default async function UserHomePage({
   params,
@@ -34,18 +35,7 @@ export default async function UserHomePage({
           <h2 className="text-xl font-bold mb-4">Experience</h2>
           <div className="space-y-6">
             {user.professional.map((exp) => (
-              <div key={exp.id} className="flex gap-4">
-                <div className="w-12 h-12 rounded bg-[var(--primary)] flex items-center justify-center text-xs font-bold">
-                  {exp.institutionName.substring(0, 2).toUpperCase()}
-                </div>
-                <div>
-                  <h3 className="font-semibold">{exp.role}</h3>
-                  <p className="text-sm ">{exp.institutionName}</p>
-                  <p className="text-xs mt-1">
-                    {exp.startDate} - {exp.endDate}
-                  </p>
-                </div>
-              </div>
+              <ExperienceCard key={exp.id} exp={exp} />
             ))}
           </div>
         </section>
@@ -54,18 +44,7 @@ export default async function UserHomePage({
           <h2 className="text-xl font-bold mb-4">Education</h2>
           <div className="space-y-6">
             {user.education.map((exp) => (
-              <div key={exp.id} className="flex gap-4">
-                <div className="w-12 h-12 rounded bg-[var(--primary)] flex items-center justify-center text-xs font-bold">
-                  {exp.institutionName.substring(0, 2).toUpperCase()}
-                </div>
-                <div>
-                  <h3 className="font-semibold">{exp.role}</h3>
-                  <p className="text-sm ">{exp.institutionName}</p>
-                  <p className="text-xs mt-1">
-                    {exp.startDate} - {exp.endDate}
-                  </p>
-                </div>
-              </div>
+              <ExperienceCard key={exp.id} exp={exp} />
             ))}
           </div>
         </section>

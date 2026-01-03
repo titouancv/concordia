@@ -4,6 +4,7 @@ export interface Experience {
   institutionName: string;
   startDate: string;
   endDate: string;
+  description?: string;
 }
 
 export interface User {
