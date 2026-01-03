@@ -6,48 +6,63 @@ datasource db {
   provider = "postgresql"
 }
 
-// Theme for companies
+// =====================
+// THEME
+// =====================
 model Theme {
-  id            String    @id @default(cuid())
+  id            String   @id @default(cuid())
   primary       String
   secondary     String
   action        String
   primaryText   String
   secondaryText String
   actionText    String
+
   company       Company?
   posts         Post[]
 }
 
-// User model
+// =====================
+// USER
+// =====================
 model User {
-  id           String       @id @default(cuid())
+  id           String        @id @default(cuid())
   name         String
-  username     String       @unique
+  username     String        @unique
   avatar       String
   bio          String
   location     String
   skills       String[]
   hobbies      String[]
+
   experiences  Experience[]
-  posts        Post[]
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
+  employments  Employment[]
+  foundations  CompanyFounder[]
+
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
 }
 
-// Experience (professional or education)
+// =====================
+// EXPERIENCE
+// =====================
 model Experience {
-  id              String   @id @default(cuid())
-  type            String   // "professional" or "education"
-  role            String
-  institutionName String
-  startDate       String
-  endDate         String
-  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId          String
+  id        String   @id @default(cuid())
+  type      String
+  role      String
+  startDate String
+  endDate   String?
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+
+  company   Company? @relation(fields: [companyId], references: [id])
+  companyId String?
 }
 
-// Company model
+// =====================
+// COMPANY
+// =====================
 model Company {
   id          String        @id @default(cuid())
   name        String
@@ -57,19 +72,60 @@ model Company {
   description String
   location    String
   website     String
+
   theme       Theme         @relation(fields: [themeId], references: [id])
   themeId     String        @unique
+
   stats       CompanyStats?
   about       CompanyAbout?
-  employees   Employee[]
+  employments Employment[]
+  founders    CompanyFounder[]
   jobs        Job[]
   widgets     Widgets?
   posts       Post[]
+  experiences Experience[]
+
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
 }
 
-// Company statistics
+// =====================
+// USER ↔ COMPANY (EMPLOYEE)
+// =====================
+model Employment {
+  id        String   @id @default(cuid())
+  role      String
+  startDate DateTime?
+  endDate   DateTime?
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+
+  company   Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  companyId String
+
+  @@unique([userId, companyId])
+}
+
+// =====================
+// USER ↔ COMPANY (FOUNDER)
+// =====================
+model CompanyFounder {
+  id        String   @id @default(cuid())
+  role      String
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+
+  company   Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  companyId String
+
+  @@unique([userId, companyId])
+}
+
+// =====================
+// COMPANY STATS
+// =====================
 model CompanyStats {
   id          String  @id @default(cuid())
   employees   Int
@@ -77,69 +133,61 @@ model CompanyStats {
   genderRatio String
   lastFunding String
   totalRaised String
+
   company     Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
   companyId   String  @unique
 }
 
-// Company about section
+// =====================
+// COMPANY ABOUT
+// =====================
 model CompanyAbout {
-  id              String          @id @default(cuid())
-  history         String
-  mission         String
-  vision          String
-  company         Company         @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  companyId       String          @unique
-  founders        Founder[]
-  officeLocation  OfficeLocation?
+  id             String         @id @default(cuid())
+  history        String
+  mission        String
+  vision         String
+
+  company        Company        @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  companyId      String         @unique
+
+  officeLocation OfficeLocation?
 }
 
-// Founder
-model Founder {
-  id       String       @id @default(cuid())
-  name     String
-  role     String
-  avatar   String
-  username String
-  about    CompanyAbout @relation(fields: [aboutId], references: [id], onDelete: Cascade)
-  aboutId  String
-}
-
-// Office location
+// =====================
+// OFFICE LOCATION
+// =====================
 model OfficeLocation {
   id       String       @id @default(cuid())
   address  String
   mapImage String
+
   about    CompanyAbout @relation(fields: [aboutId], references: [id], onDelete: Cascade)
   aboutId  String       @unique
 }
 
-// Employee (user recap for company)
-model Employee {
-  id        String  @id @default(cuid())
-  name      String
-  role      String
-  avatar    String
-  username  String
-  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  companyId String
-}
-
-// Job listing
+// =====================
+// JOB
+// =====================
 model Job {
   id        String  @id @default(cuid())
   title     String
   type      String
   location  String
   remote    Boolean
+
   company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
   companyId String
 }
 
-// Widgets container
+// =====================
+// WIDGETS
+// =====================
 model Widgets {
   id           String        @id @default(cuid())
+
   company      Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
   companyId    String        @unique
+
   stats        Stat[]
   benefits     Benefit[]
   processSteps Step[]
@@ -152,6 +200,7 @@ model Stat {
   id        String  @id @default(cuid())
   label     String
   value     String
+
   widgets   Widgets @relation(fields: [widgetsId], references: [id], onDelete: Cascade)
   widgetsId String
 }
@@ -160,6 +209,7 @@ model Benefit {
   id          String  @id @default(cuid())
   title       String
   description String
+
   widgets     Widgets @relation(fields: [widgetsId], references: [id], onDelete: Cascade)
   widgetsId   String
 }
@@ -168,6 +218,7 @@ model Step {
   id          String  @id @default(cuid())
   title       String
   description String
+
   widgets     Widgets @relation(fields: [widgetsId], references: [id], onDelete: Cascade)
   widgetsId   String
 }
@@ -177,6 +228,7 @@ model Feature {
   title       String
   description String
   image       String?
+
   widgets     Widgets @relation(fields: [widgetsId], references: [id], onDelete: Cascade)
   widgetsId   String
 }
@@ -189,6 +241,7 @@ model PricingPlan {
   features    String[]
   isPopular   Boolean  @default(false)
   ctaText     String
+
   widgets     Widgets  @relation(fields: [widgetsId], references: [id], onDelete: Cascade)
   widgetsId   String
 }
@@ -197,11 +250,14 @@ model FAQItem {
   id        String  @id @default(cuid())
   question  String
   answer    String
+
   widgets   Widgets @relation(fields: [widgetsId], references: [id], onDelete: Cascade)
   widgetsId String
 }
 
-// Post model
+// =====================
+// POST (POLYMORPHIC)
+// =====================
 model Post {
   id         String   @id @default(cuid())
   content    String
@@ -209,12 +265,18 @@ model Post {
   createdAt  DateTime @default(now())
   likes      Int      @default(0)
   comments   Int      @default(0)
-  // Author can be either a User or a Company
-  authorUser User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId     String?
-  authorCompany Company? @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  companyId  String?
-  // Theme for company posts
+
+  authorType PostAuthorType
+  authorId   String
+
   theme      Theme?   @relation(fields: [themeId], references: [id])
   themeId    String?
+  
+  company    Company? @relation(fields: [companyId], references: [id])
+  companyId  String?
+}
+
+enum PostAuthorType {
+  USER
+  COMPANY
 }

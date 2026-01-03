@@ -22,9 +22,9 @@ async function main() {
   await prisma.stat.deleteMany();
   await prisma.widgets.deleteMany();
   await prisma.job.deleteMany();
-  await prisma.employee.deleteMany();
+  await prisma.employment.deleteMany();
   await prisma.officeLocation.deleteMany();
-  await prisma.founder.deleteMany();
+  await prisma.companyFounder.deleteMany();
   await prisma.companyAbout.deleteMany();
   await prisma.companyStats.deleteMany();
   await prisma.company.deleteMany();
@@ -69,31 +69,6 @@ async function main() {
       location: "London, UK",
       skills: ["React", "TypeScript", "Tailwind CSS", "Node.js", "GraphQL"],
       hobbies: ["Hiking", "Photography", "Cooking"],
-      experiences: {
-        create: [
-          {
-            type: "professional",
-            role: "Senior Frontend Developer",
-            institutionName: "TechFlow",
-            startDate: "2021",
-            endDate: "Present",
-          },
-          {
-            type: "professional",
-            role: "Frontend Developer",
-            institutionName: "WebSolutions",
-            startDate: "2018",
-            endDate: "2021",
-          },
-          {
-            type: "education",
-            role: "BSc Computer Science",
-            institutionName: "University of London",
-            startDate: "2014",
-            endDate: "2018",
-          },
-        ],
-      },
     },
   });
 
@@ -106,24 +81,6 @@ async function main() {
       location: "San Francisco, CA",
       skills: ["Leadership", "Strategy", "Product Management"],
       hobbies: ["Golf", "Reading", "Travel"],
-      experiences: {
-        create: [
-          {
-            type: "professional",
-            role: "CEO & Co-founder",
-            institutionName: "Acme Corp",
-            startDate: "2015",
-            endDate: "Present",
-          },
-          {
-            type: "education",
-            role: "MBA",
-            institutionName: "Stanford University",
-            startDate: "2010",
-            endDate: "2012",
-          },
-        ],
-      },
     },
   });
 
@@ -140,24 +97,6 @@ async function main() {
         "Cloud Infrastructure",
       ],
       hobbies: ["Chess", "Hiking", "Piano"],
-      experiences: {
-        create: [
-          {
-            type: "professional",
-            role: "CTO & Co-founder",
-            institutionName: "Acme Corp",
-            startDate: "2015",
-            endDate: "Present",
-          },
-          {
-            type: "education",
-            role: "PhD Computer Science",
-            institutionName: "MIT",
-            startDate: "2008",
-            endDate: "2013",
-          },
-        ],
-      },
     },
   });
 
@@ -191,22 +130,6 @@ async function main() {
             "To provide cutting-edge solutions that empower businesses to achieve their full potential.",
           vision:
             "A world where technology seamlessly integrates with daily life to improve human productivity and happiness.",
-          founders: {
-            create: [
-              {
-                name: "John Doe",
-                role: "CEO & Co-founder",
-                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=John",
-                username: "johndoe",
-              },
-              {
-                name: "Jane Smith",
-                role: "CTO & Co-founder",
-                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Jane",
-                username: "janesmith",
-              },
-            ],
-          },
           officeLocation: {
             create: {
               address: "105 Jessie St, San Francisco, CA 94105, USA",
@@ -214,34 +137,6 @@ async function main() {
             },
           },
         },
-      },
-      employees: {
-        create: [
-          {
-            name: "Alice Johnson",
-            role: "Product Manager",
-            avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Alice",
-            username: "alicej",
-          },
-          {
-            name: "Bob Williams",
-            role: "Senior Engineer",
-            avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Bob",
-            username: "bobw",
-          },
-          {
-            name: "Charlie Brown",
-            role: "Designer",
-            avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Charlie",
-            username: "charlieb",
-          },
-          {
-            name: "Sarah Jenkins",
-            role: "Senior Frontend Developer",
-            avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
-            username: "sarahj",
-          },
-        ],
       },
       jobs: {
         create: [
@@ -431,16 +326,6 @@ async function main() {
           mission:
             "To streamline complex workflows and make work enjoyable again.",
           vision: "To be the operating system for modern business.",
-          founders: {
-            create: [
-              {
-                name: "Mike Ross",
-                role: "CEO",
-                avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Mike",
-                username: "mikeross",
-              },
-            ],
-          },
           officeLocation: {
             create: {
               address: "456 Tech Blvd, New York, NY 10001",
@@ -448,22 +333,6 @@ async function main() {
             },
           },
         },
-      },
-      employees: {
-        create: [
-          {
-            name: "Sarah Jenkins",
-            role: "Senior Frontend Developer",
-            avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
-            username: "sarahj",
-          },
-          {
-            name: "David Lee",
-            role: "Backend Engineer",
-            avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=David",
-            username: "davidl",
-          },
-        ],
       },
       jobs: {
         create: [
@@ -620,6 +489,221 @@ async function main() {
 
   console.log("🏢 TechFlow company created");
 
+  // Create CompanyFounder relations for Acme
+  await prisma.companyFounder.create({
+    data: {
+      userId: johnUser.id,
+      companyId: acmeCompany.id,
+      role: "CEO & Co-founder",
+    },
+  });
+
+  await prisma.companyFounder.create({
+    data: {
+      userId: janeUser.id,
+      companyId: acmeCompany.id,
+      role: "CTO & Co-founder",
+    },
+  });
+
+  // Create additional users for employees
+  const aliceUser = await prisma.user.create({
+    data: {
+      name: "Alice Johnson",
+      username: "alicej",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Alice",
+      bio: "Product Manager at Acme Corp",
+      location: "San Francisco, CA",
+      skills: ["Product Management", "User Research", "Analytics"],
+      hobbies: ["Running", "Yoga"],
+    },
+  });
+
+  const bobUser = await prisma.user.create({
+    data: {
+      name: "Bob Williams",
+      username: "bobw",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Bob",
+      bio: "Senior Engineer at Acme Corp",
+      location: "San Francisco, CA",
+      skills: ["Python", "AWS", "Docker"],
+      hobbies: ["Gaming", "Cycling"],
+    },
+  });
+
+  const charlieUser = await prisma.user.create({
+    data: {
+      name: "Charlie Brown",
+      username: "charlieb",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Charlie",
+      bio: "Designer at Acme Corp",
+      location: "San Francisco, CA",
+      skills: ["Figma", "UI Design", "Illustration"],
+      hobbies: ["Drawing", "Music"],
+    },
+  });
+
+  const davidUser = await prisma.user.create({
+    data: {
+      name: "David Lee",
+      username: "davidl",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=David",
+      bio: "Backend Engineer at TechFlow",
+      location: "New York, NY",
+      skills: ["Node.js", "PostgreSQL", "GraphQL"],
+      hobbies: ["Basketball", "Cooking"],
+    },
+  });
+
+  const mikeUser = await prisma.user.create({
+    data: {
+      name: "Mike Ross",
+      username: "mikeross",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Mike",
+      bio: "CEO at TechFlow",
+      location: "New York, NY",
+      skills: ["Leadership", "Business Development"],
+      hobbies: ["Tennis", "Reading"],
+    },
+  });
+
+  // Create CompanyFounder relation for TechFlow
+  await prisma.companyFounder.create({
+    data: {
+      userId: mikeUser.id,
+      companyId: techflowCompany.id,
+      role: "CEO",
+    },
+  });
+
+  // Create Employment relations for Acme
+  await prisma.employment.create({
+    data: {
+      userId: aliceUser.id,
+      companyId: acmeCompany.id,
+      role: "Product Manager",
+    },
+  });
+
+  await prisma.employment.create({
+    data: {
+      userId: bobUser.id,
+      companyId: acmeCompany.id,
+      role: "Senior Engineer",
+    },
+  });
+
+  await prisma.employment.create({
+    data: {
+      userId: charlieUser.id,
+      companyId: acmeCompany.id,
+      role: "Designer",
+    },
+  });
+
+  await prisma.employment.create({
+    data: {
+      userId: sarahUser.id,
+      companyId: acmeCompany.id,
+      role: "Senior Frontend Developer",
+    },
+  });
+
+  // Create Employment relations for TechFlow
+  await prisma.employment.create({
+    data: {
+      userId: sarahUser.id,
+      companyId: techflowCompany.id,
+      role: "Senior Frontend Developer",
+    },
+  });
+
+  await prisma.employment.create({
+    data: {
+      userId: davidUser.id,
+      companyId: techflowCompany.id,
+      role: "Backend Engineer",
+    },
+  });
+
+  console.log("👥 Company founders and employees created");
+
+  // Create experiences linked to companies
+  await prisma.experience.create({
+    data: {
+      type: "professional",
+      role: "Senior Frontend Developer",
+      startDate: "2021",
+      endDate: "Present",
+      userId: sarahUser.id,
+      companyId: techflowCompany.id,
+    },
+  });
+
+  await prisma.experience.create({
+    data: {
+      type: "professional",
+      role: "Frontend Developer",
+      startDate: "2018",
+      endDate: "2021",
+      userId: sarahUser.id,
+    },
+  });
+
+  await prisma.experience.create({
+    data: {
+      type: "education",
+      role: "BSc Computer Science",
+      startDate: "2014",
+      endDate: "2018",
+      userId: sarahUser.id,
+    },
+  });
+
+  await prisma.experience.create({
+    data: {
+      type: "professional",
+      role: "CEO & Co-founder",
+      startDate: "2015",
+      endDate: "Present",
+      userId: johnUser.id,
+      companyId: acmeCompany.id,
+    },
+  });
+
+  await prisma.experience.create({
+    data: {
+      type: "education",
+      role: "MBA",
+      startDate: "2010",
+      endDate: "2012",
+      userId: johnUser.id,
+    },
+  });
+
+  await prisma.experience.create({
+    data: {
+      type: "professional",
+      role: "CTO & Co-founder",
+      startDate: "2015",
+      endDate: "Present",
+      userId: janeUser.id,
+      companyId: acmeCompany.id,
+    },
+  });
+
+  await prisma.experience.create({
+    data: {
+      type: "education",
+      role: "PhD Computer Science",
+      startDate: "2008",
+      endDate: "2013",
+      userId: janeUser.id,
+    },
+  });
+
+  console.log("💼 Experiences created");
+
   // Create posts
   await prisma.post.create({
     data: {
@@ -627,8 +711,10 @@ async function main() {
         "We are thrilled to announce our Series B funding round led by TopTier Ventures! 🚀 This milestone will help us accelerate our mission to revolutionize the industry.",
       likes: 124,
       comments: 18,
-      authorCompany: { connect: { id: acmeCompany.id } },
-      theme: { connect: { id: acmeTheme.id } },
+      authorType: "COMPANY",
+      authorId: acmeCompany.id,
+      companyId: acmeCompany.id,
+      themeId: acmeTheme.id,
     },
   });
 
@@ -638,7 +724,8 @@ async function main() {
         "Just finished a great workshop on React Server Components. The performance improvements are mind-blowing! #NextJS #React #WebDev",
       likes: 45,
       comments: 7,
-      authorUser: { connect: { id: sarahUser.id } },
+      authorType: "USER",
+      authorId: sarahUser.id,
     },
   });
 
@@ -649,8 +736,10 @@ async function main() {
       image: "https://picsum.photos/seed/techflow/800/400",
       likes: 89,
       comments: 12,
-      authorCompany: { connect: { id: techflowCompany.id } },
-      theme: { connect: { id: techflowTheme.id } },
+      authorType: "COMPANY",
+      authorId: techflowCompany.id,
+      companyId: techflowCompany.id,
+      themeId: techflowTheme.id,
     },
   });
 

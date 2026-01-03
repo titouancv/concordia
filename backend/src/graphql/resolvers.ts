@@ -1,12 +1,6 @@
 import { prisma } from "../lib/db";
 import type { Experience, Post, User, Company, Theme } from "@prisma/client";
 
-type PostWithRelations = Post & {
-  authorUser: User | null;
-  authorCompany: (Company & { theme: Theme }) | null;
-  theme: Theme | null;
-};
-
 export const resolvers = {
   Query: {
     // Company queries
@@ -17,11 +11,19 @@ export const resolvers = {
           stats: true,
           about: {
             include: {
-              founders: true,
               officeLocation: true,
             },
           },
-          employees: true,
+          founders: {
+            include: {
+              user: true,
+            },
+          },
+          employments: {
+            include: {
+              user: true,
+            },
+          },
           jobs: true,
           widgets: {
             include: {
@@ -38,18 +40,26 @@ export const resolvers = {
     },
 
     company: async (_: unknown, { slug }: { slug: string }) => {
-      return prisma.company.findUnique({
+      const company = await prisma.company.findUnique({
         where: { slug },
         include: {
           theme: true,
           stats: true,
           about: {
             include: {
-              founders: true,
               officeLocation: true,
             },
           },
-          employees: true,
+          founders: {
+            include: {
+              user: true,
+            },
+          },
+          employments: {
+            include: {
+              user: true,
+            },
+          },
           jobs: true,
           widgets: {
             include: {
@@ -63,6 +73,31 @@ export const resolvers = {
           },
         },
       });
+
+      if (!company) return null;
+
+      return {
+        ...company,
+        about: company.about
+          ? {
+              ...company.about,
+              founders: company.founders.map((f) => ({
+                id: f.user.id,
+                name: f.user.name,
+                role: f.role,
+                avatar: f.user.avatar,
+                username: f.user.username,
+              })),
+            }
+          : null,
+        employees: company.employments.map((e) => ({
+          id: e.user.id,
+          name: e.user.name,
+          role: e.role,
+          avatar: e.user.avatar,
+          username: e.user.username,
+        })),
+      };
     },
 
     companyJobs: async (_: unknown, { slug }: { slug: string }) => {
@@ -86,7 +121,11 @@ export const resolvers = {
       const user = await prisma.user.findUnique({
         where: { username },
         include: {
-          experiences: true,
+          experiences: {
+            include: {
+              company: true,
+            },
+          },
         },
       });
 
@@ -96,20 +135,26 @@ export const resolvers = {
       return {
         ...user,
         professional: user.experiences
-          .filter((e: Experience) => e.type === "professional")
-          .map((e: Experience) => ({
+          .filter(
+            (e: Experience & { company: Company | null }) =>
+              e.type === "professional"
+          )
+          .map((e: Experience & { company: Company | null }) => ({
             id: e.id,
             role: e.role,
-            institutionName: e.institutionName,
+            institutionName: e.company?.name || "Unknown",
             startDate: e.startDate,
             endDate: e.endDate,
           })),
         education: user.experiences
-          .filter((e: Experience) => e.type === "education")
-          .map((e: Experience) => ({
+          .filter(
+            (e: Experience & { company: Company | null }) =>
+              e.type === "education"
+          )
+          .map((e: Experience & { company: Company | null }) => ({
             id: e.id,
             role: e.role,
-            institutionName: e.institutionName,
+            institutionName: e.company?.name || "Unknown",
             startDate: e.startDate,
             endDate: e.endDate,
           })),
@@ -118,94 +163,129 @@ export const resolvers = {
 
     // Post queries
     posts: async () => {
-      const posts = (await prisma.post.findMany({
+      const posts = await prisma.post.findMany({
         include: {
-          authorUser: true,
-          authorCompany: {
-            include: { theme: true },
-          },
           theme: true,
         },
         orderBy: { createdAt: "desc" },
-      })) as PostWithRelations[];
+      });
 
-      return posts.map((post: PostWithRelations) => ({
-        id: post.id,
-        content: post.content,
-        image: post.image,
-        createdAt: formatTimeAgo(post.createdAt),
-        likes: post.likes,
-        comments: post.comments,
-        author: post.authorUser
-          ? {
-              name: post.authorUser.name,
-              avatar: post.authorUser.avatar,
-              type: "user",
-              username: post.authorUser.username,
-              theme: null,
-            }
-          : {
-              name: post.authorCompany!.name,
-              avatar: post.authorCompany!.logo,
-              type: "company",
-              username: post.authorCompany!.slug,
-              theme: post.theme,
-            },
-      }));
+      const postsWithAuthors = await Promise.all(
+        posts.map(async (post) => {
+          if (post.authorType === "USER") {
+            const user = await prisma.user.findUnique({
+              where: { id: post.authorId },
+            });
+            return {
+              id: post.id,
+              content: post.content,
+              image: post.image,
+              createdAt: formatTimeAgo(post.createdAt),
+              likes: post.likes,
+              comments: post.comments,
+              author: {
+                name: user!.name,
+                avatar: user!.avatar,
+                type: "user",
+                username: user!.username,
+                theme: null,
+              },
+            };
+          } else {
+            const company = await prisma.company.findUnique({
+              where: { id: post.authorId },
+              include: { theme: true },
+            });
+            return {
+              id: post.id,
+              content: post.content,
+              image: post.image,
+              createdAt: formatTimeAgo(post.createdAt),
+              likes: post.likes,
+              comments: post.comments,
+              author: {
+                name: company!.name,
+                avatar: company!.logo,
+                type: "company",
+                username: company!.slug,
+                theme: post.theme || company!.theme,
+              },
+            };
+          }
+        })
+      );
+
+      return postsWithAuthors;
     },
 
     post: async (_: unknown, { id }: { id: string }) => {
-      const post = (await prisma.post.findUnique({
+      const post = await prisma.post.findUnique({
         where: { id },
         include: {
-          authorUser: true,
-          authorCompany: {
-            include: { theme: true },
-          },
           theme: true,
         },
-      })) as PostWithRelations | null;
+      });
 
       if (!post) return null;
 
-      return {
-        id: post.id,
-        content: post.content,
-        image: post.image,
-        createdAt: formatTimeAgo(post.createdAt),
-        likes: post.likes,
-        comments: post.comments,
-        author: post.authorUser
-          ? {
-              name: post.authorUser.name,
-              avatar: post.authorUser.avatar,
-              type: "user",
-              username: post.authorUser.username,
-              theme: null,
-            }
-          : {
-              name: post.authorCompany!.name,
-              avatar: post.authorCompany!.logo,
-              type: "company",
-              username: post.authorCompany!.slug,
-              theme: post.theme,
-            },
-      };
+      if (post.authorType === "USER") {
+        const user = await prisma.user.findUnique({
+          where: { id: post.authorId },
+        });
+        return {
+          id: post.id,
+          content: post.content,
+          image: post.image,
+          createdAt: formatTimeAgo(post.createdAt),
+          likes: post.likes,
+          comments: post.comments,
+          author: {
+            name: user!.name,
+            avatar: user!.avatar,
+            type: "user",
+            username: user!.username,
+            theme: null,
+          },
+        };
+      } else {
+        const company = await prisma.company.findUnique({
+          where: { id: post.authorId },
+          include: { theme: true },
+        });
+        return {
+          id: post.id,
+          content: post.content,
+          image: post.image,
+          createdAt: formatTimeAgo(post.createdAt),
+          likes: post.likes,
+          comments: post.comments,
+          author: {
+            name: company!.name,
+            avatar: company!.logo,
+            type: "company",
+            username: company!.slug,
+            theme: post.theme || company!.theme,
+          },
+        };
+      }
     },
 
     postsByAuthor: async (_: unknown, { username }: { username: string }) => {
-      const posts = (await prisma.post.findMany({
+      const user = await prisma.user.findUnique({ where: { username } });
+      if (!user) return [];
+
+      const posts = await prisma.post.findMany({
         where: {
-          authorUser: { username },
+          authorType: "USER",
+          authorId: user.id,
         },
         include: {
-          authorUser: true,
           theme: true,
         },
         orderBy: { createdAt: "desc" },
-      })) as PostWithRelations[];
+      });
 
-      return posts.map((post: PostWithRelations) => ({
+      return posts.map((post) => ({
         id: post.id,
         content: post.content,
         image: post.image,
@@ -213,30 +293,34 @@ export const resolvers = {
         likes: post.likes,
         comments: post.comments,
         author: {
-          name: post.authorUser!.name,
-          avatar: post.authorUser!.avatar,
+          name: user.name,
+          avatar: user.avatar,
           type: "user",
-          username: post.authorUser!.username,
+          username: user.username,
           theme: null,
         },
       }));
     },
 
     postsByCompany: async (_: unknown, { slug }: { slug: string }) => {
-      const posts = (await prisma.post.findMany({
+      const company = await prisma.company.findUnique({
+        where: { slug },
+        include: { theme: true },
+      });
+      if (!company) return [];
+
+      const posts = await prisma.post.findMany({
         where: {
-          authorCompany: { slug },
+          authorType: "COMPANY",
+          authorId: company.id,
         },
         include: {
-          authorCompany: {
-            include: { theme: true },
-          },
           theme: true,
         },
         orderBy: { createdAt: "desc" },
-      })) as PostWithRelations[];
+      });
 
-      return posts.map((post: PostWithRelations) => ({
+      return posts.map((post) => ({
         id: post.id,
         content: post.content,
         image: post.image,
@@ -244,11 +328,11 @@ export const resolvers = {
         likes: post.likes,
         comments: post.comments,
         author: {
-          name: post.authorCompany!.name,
-          avatar: post.authorCompany!.logo,
+          name: company.name,
+          avatar: company.logo,
           type: "company",
-          username: post.authorCompany!.slug,
-          theme: post.theme,
+          username: company.slug,
+          theme: post.theme || company.theme,
         },
       }));
     },
