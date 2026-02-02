@@ -1,55 +1,68 @@
 "use client";
 
-import Link from "next/link";
-import { Home, Settings } from "lucide-react";
-import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import Image from "next/image";
+import { Plus } from "lucide-react";
+import { InlineMenu, Tab } from "./InlineMenu";
 
-export function Header() {
-  const pathname = usePathname();
+interface HeaderProps {
+  fullName: string;
+  username: string;
+  bio: string;
+  avatarUrl: string;
+  followersCount: number;
+  followingCount: number;
+  isCompany: boolean;
+  menuTabs: Tab[];
+}
 
-  const isActive = (path: string) => pathname === path;
-
+export function Header({
+  fullName,
+  bio,
+  avatarUrl,
+  followersCount,
+  followingCount,
+  isCompany,
+  menuTabs,
+}: HeaderProps) {
   return (
-    <div className="fixed z-50 p-4 flex items-center bottom-4 left-1/2 -translate-x-1/2 md:top-4 md:left-4 md:bottom-auto md:translate-x-0">
-      <div className=" flex flex-col bg-[var(--primary)] border-2 border-[var(--action)] rounded-full">
-        <nav className="flex md:flex-col items-center transition-all">
-          <Link href="/" className="p-2 rounded-full relative">
-            {isActive("/") && (
-              <motion.div
-                layoutId="headerActiveTab"
-                className="absolute inset-0 bg-[var(--action)] rounded-full"
-                transition={{ type: "spring", stiffness: 380, damping: 30 }}
-              />
-            )}
-            <Home
-              className={cn(
-                "w-6 h-6 relative z-10 transition-colors",
-                isActive("/")
-                  ? "text-[var(--actionText)]"
-                  : "text-[var(--primaryText)] hover:text-[var(--action)]"
-              )}
+    <div className="">
+      <div className="px-4 md:px-8 max-w-7xl mx-auto">
+        <div className="flex flex-col md:flex-row items-start gap-2 md:gap-8 mb-8">
+          <div
+            className={`w-32 h-32 ${isCompany ? "rounded-sm" : "rounded-full"} border-4 border-[var(--background)] overflow-hidden relative bg-[var(--muted)] shadow-sm`}
+          >
+            <Image
+              src={avatarUrl}
+              alt={`${fullName} avatar`}
+              fill
+              className="object-cover"
             />
-          </Link>
-          <Link href="/settings" className="p-2 rounded-full relative">
-            {isActive("/settings") && (
-              <motion.div
-                layoutId="headerActiveTab"
-                className="absolute inset-0 bg-[var(--action)] rounded-full"
-                transition={{ type: "spring", stiffness: 380, damping: 30 }}
-              />
-            )}
-            <Settings
-              className={cn(
-                "w-6 h-6 relative z-10 transition-colors",
-                isActive("/settings")
-                  ? "text-[var(--actionText)]"
-                  : "text-[var(--primaryText)] hover:text-[var(--action)]"
-              )}
-            />
-          </Link>
-        </nav>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <div className="flex gap-2 md:gap-4">
+              <h1 className="text-3xl font-bold">{fullName}</h1>
+            </div>
+            <p className="text-lg text-[var(--muted-foreground)] ">{bio}</p>
+            <div className="flex flex-wrap gap-4 text-lg text-[var(--muted-foreground)]">
+              <div className="flex items-center gap-1">
+                {followersCount} followers
+              </div>
+              <div className="flex items-center gap-1">
+                {followingCount} following
+              </div>
+            </div>
+          </div>
+
+          <div className="flex-1 flex justify-end mt-2 md:mt-0">
+            <button className="px-4 py-2 flex gap-2 rounded-full font-medium text-white transition-opacity hover:opacity-90 bg-[var(--action)] text-[var(--actionText)]">
+              <Plus className="size-6" />
+              Follow
+            </button>
+          </div>
+        </div>
+
+        <InlineMenu tabs={menuTabs} />
       </div>
     </div>
   );

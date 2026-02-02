@@ -18,7 +18,7 @@ export function HeroWidget({
     <Card>
       <div className=" flex flex-col md:flex-row items-center gap-12">
         <div className="flex-1">
-          <h2 className="text-4xl md:text-6xl font-bold mb-6 text-white leading-tight">
+          <h2 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
             {title}
           </h2>
           <p className="text-lg mb-8 opacity-90 max-w-lg leading-relaxed">
@@ -39,7 +39,7 @@ export function HeroWidget({
         <div className="flex-1 w-full">
           <div className="aspect-square md:aspect-[4/3] rounded-sm bg-white/10 border border-white/10 backdrop-blur-sm relative overflow-hidden">
             {/* Placeholder for Hero Image */}
-            <div className="absolute inset-0 flex items-center justify-center text-white/20 font-bold text-xl">
+            <div className="absolute inset-0 flex items-center justify-center font-bold text-xl">
               Hero Image
             </div>
           </div>

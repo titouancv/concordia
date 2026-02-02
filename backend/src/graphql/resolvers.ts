@@ -1,10 +1,14 @@
-import { prisma } from "../lib/db";
+import { prisma, isDbAvailable } from "../lib/db";
+import { COMPANIES, USERS, POSTS } from "../data";
 import type { Experience, Post, User, Company, Theme } from "@prisma/client";
 
 export const resolvers = {
   Query: {
     // Company queries
     companies: async () => {
+      if (!isDbAvailable()) {
+        return Object.values(COMPANIES);
+      }
       return prisma.company.findMany({
         include: {
           theme: true,
@@ -40,6 +44,10 @@ export const resolvers = {
     },
 
     company: async (_: unknown, { slug }: { slug: string }) => {
+      if (!isDbAvailable()) {
+        return COMPANIES[slug] || null;
+      }
+
       const company = await prisma.company.findUnique({
         where: { slug },
         include: {
@@ -101,6 +109,11 @@ export const resolvers = {
     },
 
     companyJobs: async (_: unknown, { slug }: { slug: string }) => {
+      if (!isDbAvailable()) {
+        const company = COMPANIES[slug];
+        return company?.jobs || [];
+      }
+
       const company = await prisma.company.findUnique({
         where: { slug },
         include: { jobs: true },
@@ -110,16 +123,34 @@ export const resolvers = {
 
     // User queries
     users: async () => {
+      if (!isDbAvailable()) {
+        return Object.values(USERS);
+      }
       return prisma.user.findMany();
     },
 
     user: async (_: unknown, { username }: { username: string }) => {
+      if (!isDbAvailable()) {
+        return USERS[username] || null;
+      }
       return prisma.user.findUnique({
         where: { username },
       });
     },
 
     userHome: async (_: unknown, { username }: { username: string }) => {
+      if (!isDbAvailable()) {
+        const user = USERS[username];
+        if (!user) return null;
+        return {
+          bio: user.bio,
+          skills: user.skills,
+          hobbies: user.hobbies,
+          professional: user.professional,
+          education: user.education,
+        };
+      }
+
       const user = await prisma.user.findUnique({
         where: { username },
         include: {
@@ -141,7 +172,7 @@ export const resolvers = {
         professional: user.experiences
           .filter(
             (e: Experience & { company: Company | null }) =>
-              e.type === "professional"
+              e.type === "professional",
           )
           .map((e: Experience & { company: Company | null }) => ({
             id: e.id,
@@ -160,7 +191,7 @@ export const resolvers = {
         education: user.experiences
           .filter(
             (e: Experience & { company: Company | null }) =>
-              e.type === "education"
+              e.type === "education",
           )
           .map((e: Experience & { company: Company | null }) => ({
             id: e.id,
@@ -181,6 +212,10 @@ export const resolvers = {
 
     // Post queries
     posts: async () => {
+      if (!isDbAvailable()) {
+        return POSTS;
+      }
+
       const posts = await prisma.post.findMany({
         include: {
           theme: true,
@@ -230,13 +265,17 @@ export const resolvers = {
               },
             };
           }
-        })
+        }),
       );
 
       return postsWithAuthors;
     },
 
     post: async (_: unknown, { id }: { id: string }) => {
+      if (!isDbAvailable()) {
+        return POSTS.find((p) => p.id === id) || null;
+      }
+
       const post = await prisma.post.findUnique({
         where: { id },
         include: {
@@ -289,6 +328,10 @@ export const resolvers = {
     },
 
     postsByAuthor: async (_: unknown, { username }: { username: string }) => {
+      if (!isDbAvailable()) {
+        return POSTS.filter((p) => p.author.username === username);
+      }
+
       const user = await prisma.user.findUnique({ where: { username } });
       if (!user) return [];
 
@@ -321,6 +364,12 @@ export const resolvers = {
     },
 
     postsByCompany: async (_: unknown, { slug }: { slug: string }) => {
+      if (!isDbAvailable()) {
+        return POSTS.filter(
+          (p) => p.author.username === slug && p.author.type === "company",
+        );
+      }
+
       const company = await prisma.company.findUnique({
         where: { slug },
         include: { theme: true },
