@@ -17,21 +17,7 @@ export default async function CompanyLayout({
   }
 
   return (
-    <div
-      className="min-h-screen"
-      style={{
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        "--primary": company.theme.primary,
-        "--secondary": company.theme.secondary,
-        "--action": company.theme.action,
-        "--primaryText": company.theme.primaryText,
-        "--secondaryText": company.theme.secondaryText,
-        "--actionText": company.theme.actionText,
-        backgroundColor: company.theme.secondary,
-        color: company.theme.secondaryText,
-      }}
-    >
+    <div className="min-h-screen">
       <CompanyHeader company={company} />
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-8">{children}</div>
     </div>

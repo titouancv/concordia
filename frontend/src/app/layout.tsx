@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/layout/Header";
+import { MainMenu } from "@/components/layout/MainMenu";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${outfit.variable} antialiased min-h-screen`}>
-        <Header />
+        <MainMenu />
         <main className="">{children}</main>
       </body>
     </html>
